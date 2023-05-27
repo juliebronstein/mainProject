@@ -109,40 +109,6 @@ export const AddProduct = () => {
                     // selectetd={selectedCategories}
                   />
               
-
-<div>
-    {/*
-              
-                    <FormikControl
-                      // className="input-group mb-2 dir_ltr"
-                      control="select"
-                      options={mainCategories}
-                      name="mainCats"
-                      label="دسته"
-                      firstitem="دسته مورد نظر را انتخاب کنید..."
-                      handelOnChange={handelSelectCategories}
-                    />
-                
-
-                  <div className="col-12 col-md-6 col-lg-8 ">
-                    {selectedCategories.length > 0
-                      ? selectedCategories.map((i) => (
-                          <span key={i.id} className="chips_elem">
-                            <i
-                              className="fas fa-times text-danger"
-                              onClick={() =>
-                                handelRemovefromDelectedCatd(i.id, formik)
-                              }
-                            ></i>
-                            {i.value}
-                          </span>
-                        ))
-                      : null}
-                  </div>
-                  <ErrorMessage name={"category_ids"} component={FormikError} /> */}
-
-</div>
-
                 <FormikControl
                   className="col-md-6 col-lg-8"
                   control="input"
@@ -169,17 +135,7 @@ export const AddProduct = () => {
                   placeholder="وزن محصول (کیلوگرم)"
                  
                 />
-{/* resultType, options, name, label, className, firstItem */}
-{/* {parentCategories.length>0 ? (
-<FormikControl
-                    resultType="string"
-                    className="col-md-6 col-lg-8"
-                    control="searchableselect"
-                    options={mainCategories}
-                    name="brand_id"
-                    firstitem="دسته مورد نظر را انتخاب کنید..."
-                    lable="دسته"
-                  />):null} */}
+
                 <div className="col-12 col-md-6 col-lg-8">
                   <div className="input-group mb-3 dir_ltr">
                     <span className="input-group-text justify-content-center">
