@@ -73,25 +73,25 @@
 // export default MultiSelect;
 
 import { ErrorMessage, FastField } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import FormikError from "./FromikError";
 import SpinnerLoad from "../SpinnerLoad";
 import FormikControl from "./FormikControl";
 
-//if resulttype=== string then:"1-2-3" else [1,2,3]
+
 
 const MultiSelect = ({
-  resultType,
+  resultType,//if resulttype=== string then:"1-2-3" else [1,2,3]
   options, //mainCategories
   name, //"category_ids"
   className,
   firstitem, //"دسته مورد نظر را انتخاب کنید..."
   label,
-  setSelected, //setSelectedCategories
-  selectetd, //selectedCategories
+  // setSelected, //setSelectedCategories
+  // selectetd, //selectedCategories
   // formik,//form
 }) => {
-  // const [selectetd, setSelected] = useState([])
+   const [selectetd, setSelected] = useState([])
   const handelSelectoption = (value, formik) => {
     const item = options.filter((i) => i.id == value)[0];
     if (item) {

@@ -47,11 +47,13 @@ export const initialValues = {
         });
         setForceRender((last) => last + 1);
       } else {
+        
         const res = await ceateBrandsService(values);
         if (res.status === 201) {
+         
             Alert('انجام شد', res.data.message, 'success');
+             actions.resetForm()
             setData(lastData=>[...lastData, res.data.data])
-            actions.resetForm()
         }else{
           console.log("res",res.data)
         }

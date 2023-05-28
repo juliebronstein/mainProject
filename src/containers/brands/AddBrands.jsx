@@ -8,9 +8,7 @@ import { apiPath } from "../../services/httpService";
 import { initialValues, onSubmit, validationSchema } from "./core";
 const AddBrands = ({ editeBrand, setEditeBrand, setForceRender, setData }) => {
   const [reinitialValues, setReinitialValues] = useState(null);
- 
-
-  useEffect(() => {
+   useEffect(() => {
     if (editeBrand) setReinitialValues(editeBrand);
     else setReinitialValues(null);
   }, [editeBrand]);
@@ -21,10 +19,8 @@ const AddBrands = ({ editeBrand, setEditeBrand, setForceRender, setData }) => {
         className="btn btn-success d-flex justify-content-center align-items-center"
         data-bs-toggle="modal"
         data-bs-target="#add_brand_modal"
-        onClick={() => {
-          setEditeBrand(null);
-          
-        }}
+        onClick={setEditeBrand?() =>
+          setEditeBrand(null):()=>{} }
       >
         <i className="fas fa-plus text-light"></i>
       </button>

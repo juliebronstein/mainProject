@@ -22,10 +22,8 @@ const Brandstable = () => {
     try {
       const res = await getAllBrandsService();
       if ((res.status = 200)) {
-        setData(() => {
-          return res.data.data;
-        })
-        console.log(res.data.data);
+        setData(null)
+        setData(res.data.data)
         setLoading(false);
       }
     } catch (err) {}
@@ -85,7 +83,11 @@ const handleDeleteBrans=async(rowData)=>{
         searchParams={searchParams}
         loading={loading}
       >
-      <AddBrands editeBrand={editeBrand} setEditeBrand={setEditeBrand} setForceRender={setForceRender} setData={setData} />
+      <AddBrands 
+      editeBrand={editeBrand} 
+      setEditeBrand={setEditeBrand} 
+      setForceRender={setForceRender} 
+      setData={setData} />
 </PaginateTable>
     </>
   );

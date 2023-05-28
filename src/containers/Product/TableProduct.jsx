@@ -6,13 +6,12 @@ import {
 } from "../../services/product";
 import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
-import { Link } from "react-router-dom";
 import { AddButtunLink } from "../../components/form/AddButtunLink";
 export const TableProduct = () => {
   const [loading, setLoading] = useState(false);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
   const [pagesCount, setPagesCount] = useState(0); //کل صفحات
-  const [countOnPage, setCountOnPage] = useState(2); //تعداد ذر هر صفحه
+  const [countOnPage, setCountOnPage] = useState(20); //تعداد ذر هر صفحه
   const [data, setData] = useState([]);
   const [searchChar, setSearchChar] = useState("");
   // let j=8
@@ -86,7 +85,7 @@ export const TableProduct = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
-        <AddButtunLink link={"/product/add-product"} />
+        <AddButtunLink link={"/product/add-product"} modal="#add_product_modal"/>
       </PaginateDataTable>
     </>
   );
