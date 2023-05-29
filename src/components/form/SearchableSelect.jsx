@@ -15,7 +15,6 @@ const SearchableSelect = ({
   initialItems //default value
 }) => {
   const [selectedItems, setSelectedItems] = useState(()=>initialItems?initialItems:[]);
-
   const [showItems, setShowItems] = useState(false);
   const [copyOptions, setCopyOptions] = useState(options);
 useEffect(() => {

@@ -22,6 +22,7 @@ export const AddProduct = () => {
   const [colors, setColors] = useState([]);
   const [guarantee, setGuarantee] = useState([]);
   const [reInitialValues, setReInitialValues] = useState(null);
+  const [selecteKeyW, setSelectedKeyw] = useState([]) //use in edit
   const [selectedColor, setSelectedColor] = useState([]) //use in edit
   const [selectedCategory, setSelectedCategory] = useState([]) //use in edit
   const [selectedGuarantees, setSelectedGuarantees] = useState([]) //use in edit
@@ -31,16 +32,17 @@ export const AddProduct = () => {
       setSelectedCategory(productEdit.categories.map((ct) => {return{id:ct.id,value:ct.title}} ) )
       setSelectedColor(productEdit.colors.map((c) => {return{id:c.id,value:c.title}} ) )
       setSelectedGuarantees(productEdit.guarantees.map((g) => {return{id:g.id,value:g.title}} ) )
-    }
+      setSelectedKeyw(productEdit.keywords.split("-"))
+          }
   }
  
   useEffect(() => {
-    console.log(productEdit)
     handleGetCategory();
     handelBrands();
     handelColors();
     handelGuarantees();
     initialeditvalue()
+    console.log(productEdit)
     for(const key in productEdit)
     if(productEdit[key]==null)productEdit[key]=""
     productEdit?
@@ -50,10 +52,11 @@ export const AddProduct = () => {
       category_ids:productEdit.categories.map((i) => i.id).join("-"),
       color_ids:productEdit.colors.map((i) => i.id).join("-"),
       guarantee_ids:productEdit.guarantees.map((i) => i.id).join("-"),
+      // keywords:productEdit.keywords.split("-")
     }
       
     ):setReInitialValues(null)
-    reInitialValues? console.log("reInitialValues.is_active:",reInitialValues.is_active):console.log("hh")
+    
     
   }, [forceRender,productEdit]);
 
@@ -137,6 +140,7 @@ export const AddProduct = () => {
     } catch (err) {}
   };
 
+
   // const handelSelectCategories = (value, formik) => {
   //   const item = mainCategories.filter((i) => i.id == value)[0];
   //   if (item) {
@@ -181,7 +185,7 @@ export const AddProduct = () => {
                   :" افزودن محصول جدید"}
                   </h4>
                 <div className="text-left col-md-6 col-lg-8 m-auto my-3 text-left">
-                  <PrevPageButton />
+                  {/* <PrevPageButton /> */}
                 </div>
                 {parentCategories.length ? (
                   <FormikControl
@@ -304,13 +308,24 @@ export const AddProduct = () => {
                   name="alt_image"
                   placeholder="یک کلمه در مورد تصویر"
                 />
-                <FormikControl
+                {/* <FormikControl
                   label="تگ ها"
                   className="col-md-6 col-lg-8"
                   control="input"
                   type="text"
                   name="keywords"
                   placeholder="با - از هم جدا شوند"
+                /> */}
+                <FormikControl
+                  label="تگ ها"
+                  className="col-md-6 col-lg-8"
+                  control="inputenter"
+                  type="text"
+                  name="keywords"
+                  placeholder="با - از هم جدا شوند"
+                  resultType="string"
+                  initialItems={selecteKeyW}
+                  form={formik}
                 />
                 <FormikControl
                   label="موجودی"
@@ -341,7 +356,7 @@ export const AddProduct = () => {
                 </div>
                 <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
                   <SubmittingButton tittle="ذخیره" />
-                  <PrevPageButton />
+                  {/* <PrevPageButton /> */}
                 </div>
               </div>
             </Form>

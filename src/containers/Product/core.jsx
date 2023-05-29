@@ -25,14 +25,14 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, productEdit) => {
+  // e.preventDefault();
+  // console.log(values)
   try {
     values = { ...values, is_active: values.is_active ? 1 : 0 };
     if (productEdit) {
       const res = await editProductService(productEdit.id, values);
       if (res.status === 200) 
-        Alert("افزودن", res.data.message, "success");
-        
-      
+        Alert("افزودن", res.data.message, "success");      
     } else {
       const res = await createnewProductService(values);
       console.log(res);
@@ -42,7 +42,7 @@ export const onSubmit = async (values, actions, productEdit) => {
       }
     }
   } catch (err) {
-    Alert("آخ", "رکورد مورد نظر اضافه نشد", "warning");
+    Alert("خطا",err.message, "warning");
   }
 };
 

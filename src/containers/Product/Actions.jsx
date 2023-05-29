@@ -17,7 +17,10 @@ export const Actions = ({ item, handelDeleteProduct, setEditProduct }) => {
         className="fas fa-receipt text-success mx-1 hoverable_text pointer has_tooltip"
         title="افزودن ویژگی"
         data-bs-toggle="modal"
-        data-bs-target="#add_product_category_attr_modal"
+        data-bs-target="#add_product_category_attr_modal" 
+        onClick={() =>
+          navigate("/product/set-attr", { state: { selectedProduct: item } })
+        }
       ></i>
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"

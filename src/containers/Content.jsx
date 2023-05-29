@@ -13,6 +13,7 @@ import Carts from "./carts/Carts";
 import Guaranties from "./guaranties/Guaranties";
 import Users from "./users/Users";
 import { AddProduct } from "./Product/AddProduct";
+import SetAttribute from "./Product/setAttr/SetAttribute";
 
 export const Content = () => {
   const { showsibbar } = useContext(AdminContext);
@@ -32,6 +33,7 @@ export const Content = () => {
         />
         <Route path="/product" element={<Product />} />
         <Route path="/product/add-product" element={<AddProduct />} />
+        <Route path="/product/set-attr" element={<SetAttribute />} />
         <Route path="/colors" element={<Colors />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/carts" element={<Carts />} />
