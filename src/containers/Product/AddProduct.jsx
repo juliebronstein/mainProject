@@ -32,7 +32,7 @@ export const AddProduct = () => {
       setSelectedCategory(productEdit.categories.map((ct) => {return{id:ct.id,value:ct.title}} ) )
       setSelectedColor(productEdit.colors.map((c) => {return{id:c.id,value:c.title}} ) )
       setSelectedGuarantees(productEdit.guarantees.map((g) => {return{id:g.id,value:g.title}} ) )
-      setSelectedKeyw(productEdit.keywords.split("-"))
+      setSelectedKeyw(productEdit.keywords.split("-"))//for enterinput
           }
   }
  
@@ -52,7 +52,6 @@ export const AddProduct = () => {
       category_ids:productEdit.categories.map((i) => i.id).join("-"),
       color_ids:productEdit.colors.map((i) => i.id).join("-"),
       guarantee_ids:productEdit.guarantees.map((i) => i.id).join("-"),
-      // keywords:productEdit.keywords.split("-")
     }
       
     ):setReInitialValues(null)
@@ -175,7 +174,7 @@ export const AddProduct = () => {
         {(formik) => {
           return (
             <Form>
-              <div className="row justify-content-center ">
+              <div className="row justify-content-center">
                 <h4 className="text-center my-3">
                   {productEdit?
                   <>
@@ -185,7 +184,7 @@ export const AddProduct = () => {
                   :" افزودن محصول جدید"}
                   </h4>
                 <div className="text-left col-md-6 col-lg-8 m-auto my-3 text-left">
-                  {/* <PrevPageButton /> */}
+                  <PrevPageButton />
                 </div>
                 {parentCategories.length ? (
                   <FormikControl
@@ -247,7 +246,7 @@ export const AddProduct = () => {
                   options={brands}
                   name="brand_id"
                   firstItem="برند مورد نظر را انتخاب کنید..."
-                  modal={<AddBrands />}
+                  additionalField={<AddBrands />}
                   setForceRender={setForceRender}
                 />
                 
@@ -322,7 +321,7 @@ export const AddProduct = () => {
                   control="inputenter"
                   type="text"
                   name="keywords"
-                  placeholder="با - از هم جدا شوند"
+                  placeholder="با فاصله از هم جدا شوند"
                   resultType="string"
                   initialItems={selecteKeyW}
                   form={formik}
@@ -356,7 +355,7 @@ export const AddProduct = () => {
                 </div>
                 <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
                   <SubmittingButton tittle="ذخیره" />
-                  {/* <PrevPageButton /> */}
+                  <PrevPageButton />
                 </div>
               </div>
             </Form>

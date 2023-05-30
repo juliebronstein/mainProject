@@ -2,7 +2,7 @@ import { ErrorMessage, Field } from "formik";
 import React from "react";
 import FormikError from "./FromikError";
 
-const Select = ({options, name, label, className, firstItem, handleOnchange,modal,setForceRender
+const Select = ({options, name, label, className, firstItem, handleOnchange,additionalField,setForceRender
 }) => {
     const setOptions = ()=>{
         return (
@@ -19,9 +19,10 @@ const Select = ({options, name, label, className, firstItem, handleOnchange,moda
   return (
         <div className={`col-12 ${className}`}>
             <div className="input-group mb-3 dir_ltr">
-                  {modal?  
-                  <span className="input-group-text vertical justify-content-center" onClick={()=>setForceRender((last)=>last+1)}><>            
-                      {modal}
+                  {additionalField?  
+                  <span className="input-group-text vertical justify-content-center" 
+                  onClick={()=>setForceRender?setForceRender((last)=>last+1):()=>{}}><>            
+                      {additionalField}
                  </></span>:null}
                 <Field>
                     {({form})=>{
