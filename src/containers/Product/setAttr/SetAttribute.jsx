@@ -37,17 +37,21 @@ const SetAttribute = () => {
               <div className="row justify-content-center ">
                 <div className="text-left col-md-6 col-lg-8 m-auto my-3 text-left">
                   <PrevPageButton />
-                </div>
+                </div> 
+<h4 className="text-center my-3"> نام محصول: <span className="text-primary"> {selectedProduct.title}</span> </h4>
+
+                <div className=" margin-50">
                 {initialValues?( <Formik
       initialValues={initialValues}
       onSubmit={(values, actions) => onSubmit(values, actions,selectedProduct.id)}
       validationSchema={validationSchema}
     >
+     
       {(formik) => {
         return (
           <Form>
          
-                <h4 className="text-center my-3"> نام محصول: <span className="text-primary"> {selectedProduct.title}</span> </h4>
+                
                 
                    {attrs.map((attr, index) => (
                     <div
@@ -88,7 +92,7 @@ const SetAttribute = () => {
         );
       }}
     </Formik>):<SpinnerLoad colorClass="text-primary" />}
-   
+   </div>
      </div>
             // </div>
            

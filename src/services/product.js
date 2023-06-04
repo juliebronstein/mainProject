@@ -17,20 +17,18 @@ export const addProductAttrService = (id,data) => {
 export const createnewProductService = (data) => {
   return httpService('/api/admin/products', 'post', data.image ? convertDataToFormdata(data) : data)
 };
-export const addNewProductService = (id, data) => {
-  return httpService(`/admin/products/${id}/add_image`, 'post', data)
-};
+//immage services
 
 export const addProductImageService = (productId, data)=>{
-  return httpService(`/admin/products/${productId}/add_image`, 'post', data)
+  return httpService(`/api/admin/products/${productId}/add_image`, 'post', data)
 }
 
 export const deleteProductImageService = (imageId)=>{
-  return httpService(`/admin/products/gallery/${imageId}`, 'delete')
+  return httpService(`/api/admin/products/gallery/${imageId}`, 'delete')
 }
 
 export const setMainProductImageService = (imageId)=>{
-  return httpService(`/admin/products/gallery/set_main/${imageId}`, 'get')
+  return httpService(`/api/admin/products/gallery/set_main/${imageId}`, 'get')
 }
 
 

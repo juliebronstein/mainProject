@@ -1,6 +1,5 @@
 import React from "react";
-import { AddButtunLink } from "../../components/form/AddButtunLink";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export const Actions = ({ item, handelDeleteProduct, setEditProduct }) => {
   const navigate = useNavigate();

@@ -21,9 +21,18 @@ body{
 /* .font{
     font-family: :"";
 } */
+
+
+
 .max-height{
     /* max-height: min-content !important; */
     height: 37px !important;
+}
+.margin-20{
+    margin-right: 20%;
+}
+.margin-50{
+    margin-right: 50%;
 }
 .disabled{
     pointer-events: none !important;

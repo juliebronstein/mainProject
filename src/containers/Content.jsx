@@ -15,6 +15,8 @@ import Users from "./users/Users";
 import { AddProduct } from "./Product/AddProduct";
 import SetAttribute from "./Product/setAttr/SetAttribute";
 import { Gallery } from "./Product/gallery/Gallery";
+import Discounts from "./discounts/Discounts";
+import AddDiscount from "./discounts/AddDiscount";
 
 export const Content = () => {
   const { showsibbar } = useContext(AdminContext);
@@ -41,6 +43,9 @@ export const Content = () => {
         <Route path="/carts" element={<Carts />} />
         <Route path='/guaranties' element={<Guaranties/>}/>
         <Route path='/users' element={<Users/>}/>
+        <Route path='/discounts' element={<Discounts/> }>
+        <Route path='/discounts/add-discount' element={<AddDiscount/> }/>
+        </Route>
         {/*
             <Route path='/discounts' element={<Discounts/>}/>
             <Route path='/orders' element={<Orders/>}/>
