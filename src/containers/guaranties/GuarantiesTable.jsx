@@ -15,10 +15,6 @@ const GuarantiesTable = () => {
   const [checkAll, setCheckAll] = useState(false);
   const [editeGuarantyId, setEditeGuarantyId] = useState(null);
   const [loading, setLoading] = useState(false);
-  // var j=1
-
-
-
   useEffect(() => {
     handleGetallGuaranty();
   }, []);
@@ -26,7 +22,7 @@ const GuarantiesTable = () => {
     if (await Confirm("حذف", "آیا از حذف مطمئن هستید")) {
       const res = await deleteGuarantyService(itemId);
       if ((res.status = 200)) Alert("حذف", "حذف انجام شد", "success");
-      setData(data=>data.filter((i) => i.id !== itemId))
+      setData((data) => data.filter((i) => i.id !== itemId));
     }
   };
   const handleGetallGuaranty = async () => {
@@ -44,15 +40,7 @@ const GuarantiesTable = () => {
     placeholdert: "قسمتی از نام را وارد نمایید",
     searchField: "title",
   };
-
-  const dataInf = [
-    // { field: "id", title: "#" },
-    { field: "title", title: "عنوان گارانتی" },
-    { field: "descriptions", title: " توضیحات اجمالی در مورد این گارانتی" },
-    { field: "length_unit", title: "واحد" },
-    { field: "length", title: "مدت گارانتی" },
-  ];
-  const handleCheck = (event ,item) => {
+  const handleCheck = (event, item) => {
     var updatedList = [...datadel];
     if (event.target.checked) {
       updatedList = [...datadel, item.id];
@@ -62,17 +50,18 @@ const GuarantiesTable = () => {
       updatedList.splice(datadel.indexOf(item.id), 1);
     }
     setDatadel(updatedList);
-
   };
 
   const ckeched = (item) => {
     const checki =
-      datadel.length === data.length ? true : false || datadel.includes(item.id);
+      datadel.length === data.length
+        ? true
+        : false || datadel.includes(item.id);
     return checki;
   };
-  const ckechedAll=()=>{
-    return checkAll
-  }
+  const ckechedAll = () => {
+    return checkAll;
+  };
   const handleCheckAll = (event) => {
     setDatadel([]);
     var updatedList = [];
@@ -83,10 +72,30 @@ const GuarantiesTable = () => {
     } else {
       setCheckAll(false);
     }
-  
   };
-  const additionField = [
+  const dataInf = [
     {
+      field: null,
+      title: (
+        <CheckBox
+          handleCheck={handleCheckAll}
+          ckeched={ckechedAll}
+        />
+      ),
+      elements: (item) => (
+        <CheckBox
+          item={item}
+          handleCheck={handleCheck}
+          ckeched={ckeched}
+        />
+      ),
+    },
+    { field: "title", title: "عنوان گارانتی" },
+    { field: "descriptions", title: " توضیحات اجمالی در مورد این گارانتی" },
+    { field: "length_unit", title: "واحد" },
+    { field: "length", title: "مدت گارانتی" },
+    {
+      field: null,
       title: "عملیات",
       elements: (item) => (
         <Actions
@@ -96,43 +105,13 @@ const GuarantiesTable = () => {
         />
       ),
     },
-    // {
-    //   title: "#",
-    //   elements: (item) => (
-    //     <>{j++} </>
-    //   ),
-    // },
-    {
-      title:<CheckBox
-      
-      // data={data}
-      // setDatadel={setDatadel}
-      // checkAll={checkAll}
-      //  setCheckAll={setCheckAll}
-      handleCheck={handleCheckAll}
-       ckeched={ckechedAll}
-       />,
-       elements: (item) =><CheckBox 
-       item={item}
-      //  datalength={data.length}
-      //  datadel={datadel}
-      //  setDatadel={setDatadel} 
-      //  setCheckAll={setCheckAll}
-       handleCheck={handleCheck}
-       ckeched={ckeched}
-             />,
-    },
-
   ];
 
-
-  
   return (
     <>
       <PaginateTable
         data={data}
         dataInf={dataInf}
-        additionField={additionField}
         searchParams={searchParams}
         loading={loading}
       >

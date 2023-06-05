@@ -54,19 +54,18 @@ const ColorsTable = () => {
   const dataInf = [
     { field: "id", title: "#" },
     { field: "title", title: "نام رنگ" },
-    // { field: "code", title: "کد رنگ" },
-  ];
-
-  const additionField = [
-    {
+     {
+      field: null, 
       title: "رنگ",
       elements: (item) => <ConvertColor item={item} />,
     },
     {
+      field: null, 
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
     },
     {
+      field: null, 
       title: "عملیات",
       //در پرانتز اول دریافت میکنیم و بعد میدیمش به پرانز دوم ینی به
       //addtionElement()
@@ -76,14 +75,15 @@ const ColorsTable = () => {
         <Actions item={item} handleDeleteColor={handleDeleteColor} setEditeColorId={setEditeColorId} />
       ),
     },
+    // { field: "code", title: "کد رنگ" },
   ];
+
 
   return (
     <>
       <PaginateTable
         data={data}
         dataInf={dataInf}
-        additionField={additionField}
         searchParams={searchParams}
         loading={loading}
       >

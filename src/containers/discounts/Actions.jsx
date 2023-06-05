@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
         data-bs-placement="top"
         data-bs-target="#add_discount_modal"
         onClick={()=>{
-          navigate('/discounts/add-discount',{state:{discountSelected:item}})
+          navigate('/discounts/add-discount',{ state: { discountSelected: item } })
   
         }}
       ></i>

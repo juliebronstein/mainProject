@@ -6,7 +6,7 @@ import {
 } from "../../services/product";
 import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
-import { AddButtunLink } from "../../components/form/AddButtunLink";
+import AddButtonLink from "../../components/form/AddButtunLink";
 export const TableProduct = () => {
   const [loading, setLoading] = useState(false);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
@@ -47,7 +47,6 @@ export const TableProduct = () => {
   }, [curentPage]);
 
   const dataInf = [
-    // { field: null, title: "j",elements:()=>j++ },
     { field: "id", title: "#" },
     {
       field: null,
@@ -85,7 +84,7 @@ export const TableProduct = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
-        <AddButtunLink link={"/product/add-product"} modal="#add_product_modal"/>
+        <AddButtonLink href={"/product/add-product"} />
       </PaginateDataTable>
     </>
   );

@@ -5,7 +5,6 @@ import { Loading } from "./autForm/Loading";
 export const PaginateTable = ({
   data,
   dataInf,
-  additionField,
   children,
   searchParams,
   loading,
@@ -75,31 +74,30 @@ export const PaginateTable = ({
 {loading?<Loading/> :(data.length ? (
       <table className="table table-responsive text-center table-hover table-bordered">
         <thead className="table-secondary">
-        
-          <tr>
-            <th>#</th>
-            {dataInf.map((i) => (
-              <th key={i.field}>{i.title}</th>
-            ))}
-            {additionField ? 
-            additionField.map((a,index)=>(<th key={index+"_"+a.id}>{a.title}</th>))
-            : null}
-            {/* <th>#</th> */}
-          </tr>
+        <tr>
+              <th>#</th>
+              {dataInf.map((i, index) => (
+                <th key={i.field || `nofield_${index}`}>{i.title}</th>
+              ))}
+            </tr>
         </thead>
 
 
         
         <tbody >
           {tableData.map((d) => (
-            <tr key={d.id}>
-              <td>{i++}</td>
-              {dataInf.map((i) => (
-                <td key={d.id + "-" + i.field}>{d[i.field]}</td>
-              ))}
-              {additionField ? additionField.map((a,index)=>(<th key={'__'+index+a.id}>{a.elements(d)}</th>)) : null}
-              {/* <td>{i++} </td> */}
-            </tr>
+             <tr key={d.id}>
+             <td>{i++}</td>
+             {dataInf.map((i, index) =>
+               i.field ? (
+                 <td key={d.id + "-" + i.field}>{d[i.field]}</td>
+               ) : (
+                 <td key={d.id + "__" + i.id + "__" + index}>
+                   {i.elements(d)}
+                 </td>
+               )
+             )}
+           </tr>
           ))}
         </tbody>
       </table>

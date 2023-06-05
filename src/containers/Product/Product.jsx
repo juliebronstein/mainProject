@@ -1,5 +1,4 @@
 import React from 'react'
-import { AddProduct } from './AddProduct'
 import { TableProduct } from './TableProduct'
 
 export const Product = () => {

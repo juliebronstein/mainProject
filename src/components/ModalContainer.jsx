@@ -1,46 +1,50 @@
-import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
+import React from "react";
+import { createPortal } from "react-dom";
 
-
-
-export const ModalContainer=({children,id,title,fullscreen})=>{
-
-    return createPortal(
-        <div
-        className="modal fade"
-        id={id}
-        tabIndex="-1"
-        aria-hidden="true"
-      >
-        <div className={`modal-dialog ${fullscreen?"modal-fullscreen":null}`}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title flex-fill" id="exampleModalLabel">
-                {title}
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              {children}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                انصراف
-              </button>
-            </div>
+export const ModalContainer = ({
+  children,
+  id,
+  title,
+  fullscreen,
+  className,
+  closeFunction,
+}) => {
+  return createPortal(
+    <div
+      className={`modal fade  ${className || ""}`}
+      id={id}
+      tabIndex="-1"
+      aria-hidden="true"
+    >
+      <div className={`modal-dialog ${fullscreen ? "modal-fullscreen" : null}`}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title flex-fill" id="exampleModalLabel">
+              {title}
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeFunction || null}
+            ></button>
+          </div>
+          <div className="modal-body">{children}</div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onClick={closeFunction || null}
+            >
+              انصراف
+            </button>
           </div>
         </div>
-      </div>,
-        document.getElementById('modals-root')
-    )
-}
-export default ModalContainer
+      </div>
+    </div>,
+    document.getElementById("modals-root")
+  );
+};
+export default ModalContainer;

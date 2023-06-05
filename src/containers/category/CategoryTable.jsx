@@ -35,8 +35,6 @@ export const CategoryTable = () => {
         const res=await deleteCategoryService(rowData.id)
         if((res.status===200))
         Alert("انجام شد", res.data.message, "success");
-      //   setForceRender(last=>last+1)
-      //   برای اینکه سمت سرور هی ریکویست نفرستیم اینجوری می نویسیم. مثل پایین
         setData(data.filter(row=>row.id!==rowData.id))
         setForceRenderP((last) => last + 1);
       } catch(error) {
@@ -59,35 +57,32 @@ export const CategoryTable = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "parent_id", title: "والد" },
-  ];
-
-  const additionField = [
     {
+      field: null, 
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
     },
     {
+      field: null, 
       title: "عملیات",
-      //در پرانتز اول دریافت میکنیم و بعد میدیمش به پرانز دوم ینی به
-      //addtionElement()
-      //ازکجا دریافت کردیم از
-      //paginateTable
       elements: (item) => (
         <Actions item={item} handleDeleteCategory={handleDeleteCategory} />
       ),
     },
     {
+      field: null, 
       title: "نمایش در منو",
       elements: (item) => <ShowInMenue item={item.show_in_menu} />,
     },
   ];
+
+ 
   return (
     <>
       <Outlet />
       <PaginateTable
         data={data}
         dataInf={dataInf}
-        additionField={additionField}
         searchParams={searchParams}
         loading={loading}
       >

@@ -83,14 +83,13 @@ const Attributes = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "unit", title: "واحد" },
-  ];
-
-  const additionField = [
-    {
+       {
+        field: null, 
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
     },
     {
+      field: null, 
       title: "عملیات",
       elements: (item) => (
         <Actions
@@ -102,10 +101,12 @@ const Attributes = () => {
       ),
     },
     {
+      field: null, 
       title: "نمایش در فیلتر",
       elements: (item) => <ShowInfilter item={item} />,
     },
   ];
+
 
   return (
     <>
@@ -131,7 +132,6 @@ const Attributes = () => {
           <PaginateTable
             data={data}
             dataInf={dataInf}
-            additionField={additionField}
             searchParams={searchParams}
             loading={loading}
           >

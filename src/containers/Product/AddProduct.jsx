@@ -42,7 +42,6 @@ export const AddProduct = () => {
     handelColors();
     handelGuarantees();
     initialeditvalue()
-    console.log(productEdit)
     for(const key in productEdit)
     if(productEdit[key]==null)productEdit[key]=""
     productEdit?
@@ -273,7 +272,7 @@ export const AddProduct = () => {
                 <FormikControl
                   label="توضیحات"
                   className="col-md-6 col-lg-8"
-                  control="textarea"
+                  control="ckeditor"
                   name="descriptions"
                   placeholder="توضیحات"
                 />

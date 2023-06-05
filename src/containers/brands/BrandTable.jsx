@@ -55,18 +55,18 @@ const handleDeleteBrans=async(rowData)=>{
     { field: "original_name", title: "عنوان لاتین برند" },
     { field: "persian_name", title: "عنوان فارسی برند" },
     { field: "descriptions", title: "توضیحات"},
-  ];
-
-  const additionField = [
     {
+      field: null, 
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
     },
     {
+      field: null, 
       title: "تصویر",
       elements: (item) => item.logo?<img  src={apiPath+"/" +item.logo} alt="logo"  width="40" />:null
     },
     {
+      field: null, 
       title: "عملیات",
          elements: (item) => (
         <Actions item={item} handleDeleteBrans={handleDeleteBrans} setEditeBrand={setEditeBrand} />
@@ -74,12 +74,15 @@ const handleDeleteBrans=async(rowData)=>{
     },
   ];
 
+  // const additionField = [
+  
+  // ];
+
   return (
     <>
     <PaginateTable
         data={data}
         dataInf={dataInf}
-        additionField={additionField}
         searchParams={searchParams}
         loading={loading}
       >
