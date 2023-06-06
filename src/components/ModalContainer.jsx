@@ -11,12 +11,12 @@ export const ModalContainer = ({
 }) => {
   return createPortal(
     <div
-      className={`modal fade  ${className || ""}`}
+      className={`modal fade back_smoke  animate__animated animate__fadeIn animate__backOutDown animate__fast ${className || ""}`}
       id={id}
       tabIndex="-1"
       aria-hidden="true"
     >
-      <div className={`modal-dialog ${fullscreen ? "modal-fullscreen" : null}`}>
+      <div className={`modal-dialog animate__animated animate__fadeInDown animate__fast  ${fullscreen ? "modal-fullscreen" : null}`}>
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title flex-fill" id="exampleModalLabel">

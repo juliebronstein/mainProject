@@ -20,7 +20,6 @@ export const initData=async(selectedProduct)=>{
   let initial={}
   let validate={}
   const promise=Promise.all(
-      
     selectedProduct.categories.map(async (cat)=>{
      try{
    const res = await getCategoryAttributes(cat.id)

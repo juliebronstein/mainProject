@@ -29,11 +29,7 @@ const DiscounTstable = () => {
         const res = await deleteDicount(item.id);
         if (res.status == 200) {
           Alert("انجام شد", res.data.message, "success");
-          setData((oldData) => {
-            const newdata = oldData;
-            newdata.filter((i) => i.id != item.id);
-            return newdata;
-          });
+          setData(old=>old.filter(i=>i.id!=item.id));
         }
       } catch (err) {
       } finally {
@@ -67,11 +63,6 @@ const DiscounTstable = () => {
     },
     {
       field: null,
-      title: "برای همه",
-      elements: (item) => item.is_active? "بله": "خیر"
-    },
-    {
-      field: null,
       title: "عملیات",
       elements: (item) => (
         <Actions item={item} handleDeletediscount={handleDeletediscount} />
@@ -89,7 +80,7 @@ const DiscounTstable = () => {
         loading={loading}
       >
         <AddButtonLink href={"/discounts/add-discount"} />
-        <Outlet />
+        <Outlet context={{setData}} />
       </PaginateTable>
     </>
   );
