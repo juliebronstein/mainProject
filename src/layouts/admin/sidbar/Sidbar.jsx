@@ -32,7 +32,7 @@ export const Sidbar = () => {
           {/* <!-- =================================== --> */}
           <SideBarGroupTitle title="کاربران و همکاران"/>
           <SidebarItem target="/users" icon="fas fa-users" title="مشاهده کاربران"/>
-          <SidebarItem targetPath="/roles" icon="fas fa-user-tag" title="نقش ها"/>
+          <SidebarItem target="/roles" icon="fas fa-user-tag" title="نقش ها"/>
           <SidebarItem targetPath="/permissions" icon="fas fa-shield-alt" title="مجوز ها"/>
           {/* <!-- =================================== --> */}
           <SideBarGroupTitle title="ارتباطات"/>

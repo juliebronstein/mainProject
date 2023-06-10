@@ -6,12 +6,11 @@ import { Form, Formik } from "formik";
 import { getAllProductsService } from "../../services/product";
 import { SubmittingButton } from "../../components/SubmittingButton";
 import { initialValues, onSubmit, validationSchema } from "./core";
-import ConvertDate, { convertDateToJalali } from "../../layouts/admin/utils/ConvertDate";
+import  { convertDateToJalali } from "../../layouts/admin/utils/ConvertDate";
 const AddDiscount = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const discountSelected = location.state?.discountSelected;
-  console.log(discountSelected);
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [reinitialValues, setReinitialValues] = useState(null)

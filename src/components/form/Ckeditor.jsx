@@ -15,7 +15,7 @@ const Ckeditor = ({name, label, className, placeholder}) => {
                         <CKEditor
                         editor={ ClassicEditor }
                         data={form.values[name] || `<p>${label} : ${placeholder}</p>`}
-                        onReady={ editor => {console.log('ready'); } }
+                        // onReady={ editor => {console.log('ready'); } }
                         onChange={ ( event, editor ) => {
                             const data = editor.getData();
                             form.setFieldValue(name, data)

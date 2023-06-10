@@ -1,8 +1,6 @@
-import React from 'react'
 import jMoment from 'jalali-moment'
 const ConvertDate = (date) => {
-
-  return  jMoment(date).format('jYYYY/jMM/jDD')
+  return  jMoment(date.item).format('jYYYY/jMM/jDD')
   
 }
 export const ConvertDateToMiladi = (date) => {
