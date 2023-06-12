@@ -56,16 +56,17 @@ const FilterSelect = ({
 }) => {
   const [selectedItems, setSelectedItems] = useState(()=>initialItems?initialItems:[]);
   const [showItems, setShowItems] = useState(false);
-  const [copyOptions, setCopyOptions] = useState(options);
+  const [copyOptions, setCopyOptions] = useState([]);
+  const [targetValue, setTargetValue] = useState("")
 useEffect(() => {
   // if( initialItems)
   setSelectedItems(initialItems)
 }, [initialItems])
 
-  useEffect(() => {
-    setCopyOptions(options);
+  // useEffect(() => {
+  //   setCopyOptions(options);
    
-  }, [options]);
+  // }, [options]);
 
   useEffect(() => {
     document.querySelector("body").addEventListener("click", () => {
@@ -83,11 +84,12 @@ useEffect(() => {
         options.filter((o) => o.id == selectedId)[0],
       ];
       setSelectedItems(newData);
-
       const selectedIds = newData.map((nd) => nd.id);
       const nameValue =
         resultType == "string" ? selectedIds.join("-") : selectedIds;
       formik.setFieldValue(name, nameValue);
+      setCopyOptions([])
+      setTargetValue("")
     }
   };
 
@@ -104,14 +106,22 @@ useEffect(() => {
       return newData;
     });
   };
+const handelChange=async(e)=>{
+  setTargetValue(()=> e.target.value)
+if( e.target.value!=="")
+  {setCopyOptions( options.filter((o) => o.value.includes( e.target.value)) )
 
+}
+  else
+   setCopyOptions([])
+}
   return (
     <Field>
       {({ form }) => {
         return (
           <div className={`col-12 ${className}`}>
             <div
-              className="input-group mb-3 dir_ltr pointer"
+              className="input-group mb-3 dir_ltr pointer "
               onClick={(e) => {
                 e.stopPropagation();
                 setShowItems(!showItems);
@@ -119,24 +129,26 @@ useEffect(() => {
             >
               <div className="form-control" id={name + "-select"}>
                 
-                <div
+                {/* <div
                   className={`multi_select_items_content ${
                     !showItems ? "d-none" : ""
                   }`}
-                >
+                > */}
                   <input
                     type="text"
-                    className="form-control margin-t"
-                    placeholder="قسمتی از عنوان مورد نظر را وارد کنید"
+                    className="form-control "
+                    placeholder={firstItem}
+                    value={targetValue}
                     onClick={(e) => e.stopPropagation()}
-                    onChange={(e) =>
-                      setCopyOptions(
-                        options.filter((o) => o.value.includes(e.target.value))
-                      )
+                    onChange={(e) =>handelChange(e)
+                    
                     }
                   />
-                  <ul className="p-0">
-                    {copyOptions.map((o) => (
+
+
+
+                  <ul className="p-0 ">
+                    {copyOptions?.map((o) => (
                       <li
                         key={o.id}
                         className="multi_select_items pointer"
@@ -147,7 +159,11 @@ useEffect(() => {
                       </li>
                     ))}
                   </ul>
-                </div>
+
+
+
+
+                {/* </div> */}
               </div>{" "}
               <span
                 htmlFor={name + "-select"}
@@ -174,7 +190,8 @@ useEffect(() => {
                     </span>
                   ))
                 ) : (
-                  <span className="text-secondary">{firstItem}</span>
+                  null
+                  // <span className="text-secondary">{firstItem}</span>
                 )}
             <ErrorMessage name={name} component={FormikError} />
           </div>

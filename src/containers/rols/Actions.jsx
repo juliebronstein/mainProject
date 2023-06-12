@@ -1,7 +1,8 @@
 import React from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const Actions = ({ item,handelDeleteRole}) => {
+export const Actions = ({ item, handelDeleteRole }) => {
+  const navigate = useNavigate();
   return (
     <>
       <i
@@ -10,18 +11,23 @@ export const Actions = ({ item,handelDeleteRole}) => {
         data-bs-toggle="modal"
         data-bs-placement="top"
         data-bs-target="#add_role_modal"
+        onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"role"} })}}
       ></i>
       <i
-        className="fas fa-receipt text-success mx-1 hoverable_text pointer has_tooltip"
+        className="fas fa-fingerprint text-info mx-1 hoverable_text pointer has_tooltip"
         title="دسترسی ها"
+          data-bs-toggle="modal"
+        data-bs-placement="top"
+        data-bs-target="#add_role_modal"
+        onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"permissions"} })}}
       ></i>
-    
+
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
         title="حذف نفش"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
-        onClick={()=>handelDeleteRole(item)}
+        onClick={() => handelDeleteRole(item)}
       ></i>
     </>
   );

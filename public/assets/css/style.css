@@ -122,6 +122,9 @@ body{
     text-align: left !important
 
 }
+.fleximport{
+    display: flex !important;
+}
 .vertical{
     display:flex;align-items:center;text-align:center;white-space:nowrap;
     /* background-color:#e9ecef;border:1px solid #ced4da;border-radius:.25rem */

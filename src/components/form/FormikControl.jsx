@@ -9,6 +9,8 @@ import Textarea from "./Textarea";
 import InputEnter from "./InputEnter";
 import MultiSelect from "./MultiSelect";
 import SearchableSelect from "./SearchableSelect";
+import FilterSelect from "./FilterSelect";
+import Checkbox from "./CheckBox";
 
 const FormikControl = (props) => {
   switch (props.control) {
@@ -22,14 +24,18 @@ const FormikControl = (props) => {
       return <Select {...props} />;
     case "switch":
       return <Switch {...props} />;
+    case "checkbox":
+      return <Checkbox {...props} />;
     case "ckeditor":
       return <Ckeditor {...props} />;
     case "textarea":
-      return <Textarea {...props} />;
+      return <Textarea {...props} />;  
     case "inputenter":
       return <InputEnter {...props} />;
     case "multiSelect":
       return <MultiSelect {...props} />;
+    case "filterselect":
+      return <FilterSelect {...props} />;
     case "searchableselect":
       return <SearchableSelect {...props} />;
     default:

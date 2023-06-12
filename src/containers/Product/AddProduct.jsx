@@ -260,6 +260,17 @@ export const AddProduct = () => {
                   initialItems={selectedColor}
                 />
                 <FormikControl
+                  label="رنگ"
+                  resultType="string"
+                  className="col-md-6 col-lg-8"
+                  control="filterselect"
+                  options={typeof colors == "object" ? colors : []}
+                  name="color_ids"
+                  firstItem="رنگ مورد نظر را انتخاب کنید..."
+                  initialItems={selectedColor}
+                />
+
+                <FormikControl
                  label="گارانتی"
                   resultType="string"
                   className="col-md-6 col-lg-8"

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import AddRole from './AddRole'
-import { deleteRole, getAllRoles } from '../../services/role'
+import { deleteRole, getAllRoles } from '../../services/user'
 import {Actions} from './Actions'
 import { PaginateTable } from '../../components/PaginateTable'
 import { Alert } from 'react-bootstrap'
 import { Confirm } from '../../layouts/admin/utils/alert'
+import AddButtonLink from '../../components/form/AddButtunLink'
+import { Outlet } from 'react-router-dom'
 export const RoleTable = () => {
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    
     useEffect(() => {
     handelGetAllRole()
 }, [])
@@ -16,15 +18,15 @@ export const RoleTable = () => {
 
 
 const handelDeleteRole=async(item)=>{
-if(await Confirm("حذف", "آیا از حذف مطمئن هستید؟")){
-  try{
+ try{if(await Confirm("حذف", "آیا از حذف مطمئن هستید؟")){
+ 
     const res=await deleteRole(item.id)
     if(res.status==200){
       Alert("انجام شد",res.data.message,"success")
       setData(data.filter(i=>i.id!=item.id))
     }
-  }catch(err){console.log(err)}
-}
+  
+}}catch(err){console.log(err)}
 }
 
 const handelGetAllRole=async()=>{
@@ -33,7 +35,6 @@ const handelGetAllRole=async()=>{
             const res=await getAllRoles()
             if(res.status==200){
             setData(res.data.data)
-            console.log(res.data.data)
         }
         }catch(err){console.log(err)}finally{
             setLoading(false)
@@ -71,7 +72,8 @@ const handelGetAllRole=async()=>{
         searchParams={searchParams}
         loading={loading}
       >
-         <AddRole/>
+         <AddButtonLink href="/roles/add-role" />
+         <Outlet context={{setData}} />
       </PaginateTable>
     </div>
 

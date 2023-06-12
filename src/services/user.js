@@ -18,3 +18,13 @@ export const getAllRoles = ( ) => {
       return httpService(`/api/admin/permissions`, "get");
     };
   
+    
+export const getSinglrRoleService = (roleId)=>{
+  return httpService(`/api/admin/roles/${roleId}`, "get")
+}
+
+
+
+export const editRolePermissionsService = (roleId, data)=>{
+  return httpService(`/admin/roles/${roleId}/permissions`, "put", data)
+}
