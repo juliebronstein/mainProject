@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import AddDiscount from "./AddDiscount";
 import Actions from "./Actions";
 import { GetAllDicount, deleteDicount } from "../../services/discoints";
-import { ShowInMenue } from "../category/tableAdditions/ShowInMenue";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import ConvertDate from "../../layouts/admin/utils/ConvertDate";
 import { PaginateTable } from "../../components/PaginateTable";
@@ -16,7 +14,7 @@ const DiscounTstable = () => {
     setLoading(true);
     try {
       const res = await GetAllDicount();
-      if (res.status == 200) setData(() => res.data.data);
+      if (res.status === 200) setData(() => res.data.data);
     } catch (err) {
       console.log(err);
     } finally {
@@ -27,7 +25,7 @@ const DiscounTstable = () => {
     if (await Confirm("حدف", "آیا از حذف خود مطمئن هستید؟")) {
       try {
         const res = await deleteDicount(item.id);
-        if (res.status == 200) {
+        if (res.status === 200) {
           Alert("انجام شد", res.data.message, "success");
           setData(old=>old.filter(i=>i.id!=item.id));
         }

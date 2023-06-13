@@ -8,17 +8,15 @@ export const Actions = ({ item, handelDeleteRole }) => {
       <i
         className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
         title="ویرایش نقش"
-        data-bs-toggle="modal"
         data-bs-placement="top"
-        data-bs-target="#add_role_modal"
+        data-bs-toggle="tooltip"
         onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"role"} })}}
       ></i>
       <i
         className="fas fa-fingerprint text-info mx-1 hoverable_text pointer has_tooltip"
         title="دسترسی ها"
-          data-bs-toggle="modal"
         data-bs-placement="top"
-        data-bs-target="#add_role_modal"
+        data-bs-toggle="tooltip"
         onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"permissions"} })}}
       ></i>
 

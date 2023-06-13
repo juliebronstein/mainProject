@@ -1,19 +1,26 @@
 import React from 'react';
 import ModalContainer from '../../components/ModalContainer';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 
 const AddUser = () => {
+    const navigation=useNavigate()
+    const location=useLocation()
+    const selectedUserId=location?.state?.selectedUserId
+    const {setData}=useOutletContext()
     return (
         <>
-            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add_user_modal">
-                <i className="fas fa-plus text-light"></i>
-            </button>
+         
             <ModalContainer
+            className="show d-block"
                 id={"add_user_modal"}
                 title={"افزودن کاربر"}
                 fullScreen={true}
+                closeFunction={() => {
+                    navigation(-1);
+                  }}
             >
-                <div className="container">
+                <div className="">
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-6 col-lg-8">
                             <div className="input-group my-1 dir_ltr">

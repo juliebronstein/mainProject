@@ -40,10 +40,8 @@ const AddRole = () => {
           title: role.title,
           description: role.description,
         }) :setReInitialValues({
-          title: role.title,
-          description: role.description,
           permissions_id:role.permissions.map(i=>""+i.id),
-          // editPermissions:true
+          editPermissions:true
         })
       }
     // }
@@ -71,7 +69,7 @@ const AddRole = () => {
       <div className="row justify-content-center">
         <Formik
           initialValues={reInitialValues || initialValues}
-          onSubmit={(values, actions) => onSubmit(values, actions, setData,selectedRoleId)}
+          onSubmit={(values, actions) => onSubmit(values, actions, setData,selectedRoleId,editeType)}
           validationSchema={validationSchema}
           enableReinitialize
         >

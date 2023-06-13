@@ -1,9 +1,8 @@
 import httpService from "./httpService";
 
-export const getAllUsersService = () => {
-    return httpService(`/api/admin/users`, "get");
+export const getAllUsersService = (page, countOnPage, searchChar) => {
+    return httpService(`/api/admin/users?page=${page}&count=${countOnPage}&searchChar=${searchChar}`, "get");
   };
-
   export const deleteUserService = (id ) => {
     return httpService(`/api/admin/users${id}`, "delete");
   };

@@ -25,6 +25,14 @@ export const getSinglrRoleService = (roleId)=>{
 
 
 
+
+export const editRoleService = (roleId, data)=>{
+  return httpService(`/api/admin/roles/${roleId}`, "put", data)
+}
+
+
+
+
 export const editRolePermissionsService = (roleId, data)=>{
-  return httpService(`/admin/roles/${roleId}/permissions`, "put", data)
+  return httpService(`/api/admin/roles/${roleId}/permissions`, "put", data)
 }
