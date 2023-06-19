@@ -6,6 +6,7 @@ import { deleteUserService, getAllUsersService } from "../../services/users";
 import AddButtonLink from "../../components/form/AddButtunLink";
 import { Outlet } from "react-router-dom";
 import { PaginateDataTable } from "../../components/PaginateDataTable";
+import { Roles } from "./Roles";
 
 export const UserTable = () => {
   const [EditeUserId, setEditeUserId] = useState(null);
@@ -17,14 +18,15 @@ export const UserTable = () => {
   const [forceRender, setForceRender] = useState(false);
   const [searchChar, setSearchChar] = useState("");
   useEffect(() => {
-    getAllUsers();
-  }, [forceRender]);
+    getAllUsers(curentPage, countOnPage, searchChar);
+  }, []);
 
   const getAllUsers = async (page, count, char) => {
     try {
       setLoading(true)
-      const res = await getAllUsersService();
-      if ((res.status = 200)) setData(res.data.data)
+      const res = await getAllUsersService(page, count, char);
+      if ((res.status = 200)) setData(res.data.data.data)
+    
     } catch (err) {}finally{setLoading(false)}
   };
 
@@ -43,22 +45,36 @@ export const UserTable = () => {
   };
   const searchParams = {
     title: "جستجو",
-    placeholdert: "قسمتی از نام را وارد نمایید",
+    placeholdert: "قسمتی از شماره تماس یا ایمیل را وارد نمایید",
     searchField: "first_name",
   };
 
 
   const dataInf = [
     { field: "id", title: "#" },
-    { field: "first_name", title: "نام" },
-    { field: "last_name", title: "نام خانوادگی" },
     { field: "user_name", title: "نام کاربری" },
+    {
+      field: null,
+      title: "نام",
+      elements: (item) => `${item.first_name ||""} ${item.last_name || ""}`
+    },
+    {
+      field: null,
+      title: "نقش",
+      elements: (item) => <Roles item={item}/>
+    },
     { field: "phone", title: "شماره تلفن" },
+    { field: "email", title: "ایمیل" },
   
     {
       field: null,
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
+    },
+    {
+      field: null,
+      title: "جنسیت",
+      elements: (item) => item.gender?"آقا":"خانم",
     },
     {
       field: null,

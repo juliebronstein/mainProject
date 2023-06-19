@@ -1,5 +1,5 @@
 import httpService from "./httpService";
-
+//in fact this services is for roles
 export const getAllRoles = ( ) => {
     return httpService(`/api/admin/roles`, "get");
   };
