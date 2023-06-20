@@ -226,7 +226,8 @@ const AddUser = () => {
         last_name: userToEdit.last_name || "",
         phone: userToEdit.phone || "",
         email: userToEdit.email || "",
-        gender: userToEdit.gender || 1,
+        gender: userToEdit.gender,
+        isEditing:true,
       });
     }
   }, [userToEdit]);
@@ -243,7 +244,7 @@ const AddUser = () => {
         <Formik
           initialValues={reInitialValues || initialValues}
           onSubmit={(values, actions) =>
-            onSubmit(values, actions, setData, selectedUserId)
+            onSubmit(values, actions, setData, selectedUserId,setSelectedRoles,setUserToEdit)
           }
           validationSchema={validationSchema}
           enableReinitialize
@@ -322,7 +323,7 @@ const AddUser = () => {
                     label="جنسیت"
                     formik={formik}
                     options={[
-                      { id: 0, value: "زن" },
+                      { id: 0, value: "خانم" },
                       { id: 1, value: "مرد" },
                     ]}
                   />

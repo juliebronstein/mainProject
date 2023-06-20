@@ -12,7 +12,7 @@ export const UserTable = () => {
   const [EditeUserId, setEditeUserId] = useState(null);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
   const [pagesCount, setPagesCount] = useState(0); //کل صفحات
-  const [countOnPage, setCountOnPage] = useState(20); 
+  const [countOnPage, setCountOnPage] = useState(20);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [forceRender, setForceRender] = useState(false);
@@ -23,19 +23,24 @@ export const UserTable = () => {
 
   const getAllUsers = async (page, count, char) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await getAllUsersService(page, count, char);
-      if ((res.status = 200)) setData(res.data.data.data)
-    
-    } catch (err) {}finally{setLoading(false)}
+      if ((res.status = 200)) setData(res.data.data.data);
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeleteUser = async (itemId) => {
     if (await Confirm("حذف", "آیا از حذف مطمین هستید؟")) {
       try {
         const res = await deleteUserService(itemId);
-        if (res.status === 200)
+        if (res.status === 200) {
           Alert("انجام شد", res.data.message, "success");
+          getAllUsers(curentPage, countOnPage, searchChar);
+          // setData(data.filter(i=>i.id!=itemId))
+        }
       } catch (err) {}
     }
   };
@@ -49,23 +54,22 @@ export const UserTable = () => {
     searchField: "first_name",
   };
 
-
   const dataInf = [
     { field: "id", title: "#" },
     { field: "user_name", title: "نام کاربری" },
     {
       field: null,
       title: "نام",
-      elements: (item) => `${item.first_name ||""} ${item.last_name || ""}`
+      elements: (item) => `${item.first_name || ""} ${item.last_name || ""}`,
     },
     {
       field: null,
       title: "نقش",
-      elements: (item) => <Roles item={item}/>
+      elements: (item) => <Roles item={item} />,
     },
     { field: "phone", title: "شماره تلفن" },
     { field: "email", title: "ایمیل" },
-  
+
     {
       field: null,
       title: "تاریخ ایجاد",
@@ -74,24 +78,20 @@ export const UserTable = () => {
     {
       field: null,
       title: "جنسیت",
-      elements: (item) => item.gender?"آقا":"خانم",
+      elements: (item) => (item.gender ? "آقا" : "خانم"),
     },
     {
       field: null,
       title: "عملیات",
       elements: (item) => (
-        <Actions
-          item={item}
-          handleDeleteUser={handleDeleteUser}
-        />
+        <Actions item={item} handleDeleteUser={handleDeleteUser} />
       ),
     },
   ];
 
-
   return (
     <>
-    <PaginateDataTable
+      <PaginateDataTable
         initData={data}
         dataInf={dataInf}
         searchParams={searchParams}
@@ -101,10 +101,9 @@ export const UserTable = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
-        <AddButtonLink href="/users/add-user"/>
-        <Outlet context={{setData}}/>
+        <AddButtonLink href="/users/add-user" />
+        <Outlet context={{ setData }} />
       </PaginateDataTable>
-
-          </>
+    </>
   );
 };

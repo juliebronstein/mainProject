@@ -11,7 +11,13 @@ import { Sidbar } from "./sidbar/Sidbar";
 
 export const Index = () => {
   const [loading, isLogin] = useIsLogin()
-
+  // const {roles,error}=useSelector(state=>state.rolesReducer)
+  // const dispatch=useDispatch()
+  // useEffect(() => {
+  //  dispatch(getRolesActionRedux())
+  //  console.log("roles",roles)
+  // }, [])
+  
   return (
     <AdminContextContainer>
       {loading ? (

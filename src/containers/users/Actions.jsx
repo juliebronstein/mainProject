@@ -5,8 +5,6 @@ export const Actions = ({ item,handleDeleteUser }) => {
   const navigate=useNavigate()
   return (
     <>
-     
-
       <i
         className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
         title="ویرایش کاربر"
@@ -14,13 +12,6 @@ export const Actions = ({ item,handleDeleteUser }) => {
         data-bs-toggle="tooltip"
         onClick={()=>{navigate('/users/add-user',{state:{selectedUserId:item.id}})}}
       ></i>
-{/* 
-      <i
-        className="fas fa-receipt text-success mx-1 hoverable_text pointer has_tooltip"
-        title="افزودن ویژگی"
-        data-bs-toggle="modal"
-      ></i> */}
-
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
         title="حذف کاربر"
