@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export const LeftContent = () => {
+  // const user=useSelector(state=>state.userReduce.user)
+  const user=useSelector(state=>state.userReduce.user)
   return (
     <div className="left_content d-flex flex-row-reverse">
     <i
@@ -16,7 +19,11 @@ export const LeftContent = () => {
     >
       <li className="my-2">
         {" "}
-        <a className="dropdown-item d-block text-center" href='/#'>قاسم بساکی</a>
+        <a className="dropdown-item d-block text-center" href='/#'>  
+        {user.full_name}
+        {/* {user.first_name+user.last_name?user.first_name+" "+ user.last_name :user.phone} */}
+        {/* {user.full_name!==null+" "+null?user.full_name:user.phone} */}
+          </a>
       </li>
       <li className="my-2 d-flex justify-content-center align-items-center px-2">
         <i className="fas fa-tachometer-alt"></i>

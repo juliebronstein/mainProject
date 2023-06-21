@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AdminContext } from "../context/AdminLayoutContext";
 import { Logout } from "./auth/Logout";
 import { Category } from "./category/Category";
@@ -20,9 +20,17 @@ import AddDiscount from "./discounts/AddDiscount";
 import Roles from "./rols/Roles";
 import AddRole from "./rols/AddRole";
 import AddUser from "./users/AddUser";
+import Permissions from "./permissions/Permissions";
+import PermComponent from "../components/form/PermComponent";
+import { useHasPermission } from "../hook/permissiondHook";
 
 export const Content = () => {
   const { showsibbar } = useContext(AdminContext);
+  const hasCategoryPermission = useHasPermission("read_categories")
+  const hasDiscountPermission = useHasPermission("read_discounts")
+  const hasUserPermission = useHasPermission("read_users")
+  const hasRolePermission = useHasPermission("read_roles")
+
   return (
     <section
       id="content_section"
@@ -30,37 +38,43 @@ export const Content = () => {
     >
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/category" element={<Category />}>
+        {hasCategoryPermission && (<Route path="/category" element={<Category />}>
           <Route path=":categoryId" element={<CategoryChildren />} />
-        </Route>
-        <Route
-          path="/category/:categoryId/attributes"
-          element={<Attributes />}
-        />
-        <Route path="/product" element={<Product />} />
-        <Route path="/product/add-product" element={<AddProduct />} />
-        <Route path="/product/set-attr" element={<SetAttribute />} />
-        <Route path="/product/gallery" element={<Gallery />} />
-        <Route path="/colors" element={<Colors />} />
-        <Route path="/brands" element={<Brands />} />
+          </Route>
+        ) }
+
+        <Route path="/category/:categoryId/attributes" element={<PermComponent component={<Attributes/>} pTitle="read_category_attrs" />} />
+        <Route path="/product"element={<PermComponent component={<Product/>} pTitle="read_products" />} />
+        <Route path="/product/add-product" element={<PermComponent component={<AddProduct />} pTitle="create_product"/>} />
+        <Route path="/product/set-attr" element={<PermComponent component={<SetAttribute />} pTitle="create_product_attr"/>} />
+        <Route path="/product/gallery" element={<PermComponent component={<Gallery/>} pTitle="create_product_image"/>}  />
+        <Route path="/colors" element={<PermComponent component={<Colors/>} pTitle="read_colors"/>} />
+        <Route path="/brands" element={<PermComponent component={<Brands/>} pTitle="read_brands"/>} />
         <Route path="/carts" element={<Carts />} />
-        <Route path='/guaranties' element={<Guaranties/>}/>
-        <Route path='/users' element={<Users/>}>
-        <Route path='add-user' element={<AddUser/>}/>
+        <Route path="/guaranties" element={<PermComponent component={<Guaranties/>} pTitle="read_cards"/> }/>
+        {hasUserPermission&&(
+          <Route path="/users" element={<Users/>}>
+          <Route path="add-user" element={<AddUser />} />
         </Route>
-        <Route path='/discounts' element={<Discounts/> }>
-        <Route path='add-discount' element={<AddDiscount/> }/>
+        )}
+        {hasDiscountPermission&&(
+           <Route path="/discounts" element={<Discounts />}>
+          <Route path="add-discount" element={<AddDiscount />} />
         </Route>
-        <Route path='/roles' element={<Roles/>}>
-        <Route path='add-role' element={<AddRole/> }/>
+        )}
+       {hasRolePermission&&(
+         <Route path="/roles" element={<Roles />}>
+          <Route path="add-role" element={<AddRole />} />
         </Route>
+       )}
+       
+        <Route path="/permissions" element={<PermComponent component={<Permissions />}pTitle="read_permissions"/> } />
         {/*
             <Route path='/discounts' element={<Discounts/>}/>
             <Route path='/orders' element={<Orders/>}/>
             <Route path='/deliveries' element={<Deliveries/>}/>
          
           
-            <Route path='/permissions' element={<Permissions/>}/>
             <Route path='/questions' element={<Questions/>}/>
             <Route path='/comments' element={<Comments/>}/> */}
         <Route path="/logout" element={<Logout />} />

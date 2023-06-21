@@ -3,9 +3,13 @@ import { AdminContext } from "../../../context/AdminLayoutContext";
 import { Avatar } from "./Avatar";
 import { SideBarGroupTitle } from "./SideBarGroupTitle";
 import { SidebarItem } from "./SidebarItem";
+import { useSelector } from "react-redux";
 
 export const Sidbar = () => {
   const { showsibbar } = useContext(AdminContext);
+  const user=useSelector(state=>state.userReduce.user)
+const ulr='/assets/images/avatar/'
+const urlImage=user.gender?ulr+"man.jpg":ulr+"woman.jpg"
   return (
     <section id="sidebar_section">
       <div
@@ -14,7 +18,7 @@ export const Sidbar = () => {
         }`}
       >
         <div className="p-0 m-0">
-          <Avatar imgPath="/assets/images/avatar/user2.jpg" name="سمانه ازهر" />
+          <Avatar imgPath={user.image||urlImage } name={user.full_name} />
           <SidebarItem clsN="active"icon="fas fa-tachometer-alt" title="داشبورد" target="/" />
           <SideBarGroupTitle title="فروشگاه" />
 
@@ -33,7 +37,7 @@ export const Sidbar = () => {
           <SideBarGroupTitle title="کاربران و همکاران"/>
           <SidebarItem target="/users" icon="fas fa-users" title="مشاهده کاربران"/>
           <SidebarItem target="/roles" icon="fas fa-user-tag" title="نقش ها"/>
-          <SidebarItem targetPath="/permissions" icon="fas fa-shield-alt" title="مجوز ها"/>
+          <SidebarItem target="/permissions" icon="fas fa-shield-alt" title="مجوز ها"/>
           {/* <!-- =================================== --> */}
           <SideBarGroupTitle title="ارتباطات"/>
           <SidebarItem targetPath="/questions" icon="fas fa-question-circle" title="سوال ها"/>
