@@ -51,7 +51,7 @@ export const Content = () => {
         <Route path="/colors" element={<PermComponent component={<Colors/>} pTitle="read_colors"/>} />
         <Route path="/brands" element={<PermComponent component={<Brands/>} pTitle="read_brands"/>} />
         <Route path="/carts" element={<Carts />} />
-        <Route path="/guaranties" element={<PermComponent component={<Guaranties/>} pTitle="read_cards"/> }/>
+        <Route path="/guaranties" element={<PermComponent component={<Guaranties/>} pTitle="read_guarantees"/> }/>
         {hasUserPermission&&(
           <Route path="/users" element={<Users/>}>
           <Route path="add-user" element={<AddUser />} />
@@ -68,7 +68,7 @@ export const Content = () => {
         </Route>
        )}
        
-        <Route path="/permissions" element={<PermComponent component={<Permissions />}pTitle="read_permissions"/> } />
+        <Route path="/permissions" element={<PermComponent component={<Permissions />} pTitle="read_permissions"/> } />
         {/*
             <Route path='/discounts' element={<Discounts/>}/>
             <Route path='/orders' element={<Orders/>}/>

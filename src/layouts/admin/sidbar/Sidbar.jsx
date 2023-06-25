@@ -19,29 +19,29 @@ const urlImage=user.gender?ulr+"man.jpg":ulr+"woman.jpg"
       >
         <div className="p-0 m-0">
           <Avatar imgPath={user.image||urlImage } name={user.full_name} />
-          <SidebarItem clsN="active"icon="fas fa-tachometer-alt" title="داشبورد" target="/" />
-          <SideBarGroupTitle title="فروشگاه" />
+          <SidebarItem clsN="active"icon="fas fa-tachometer-alt" title="داشبورد" target="/" pTitle="read_" />
+          <SideBarGroupTitle title="فروشگاه"  pTitle={["read_categories","read_products","read_brands","read_guarantees","read_colors","read_discounts"]} />
 
-          <SidebarItem icon="fas fa-stream" title="مدیریت گروه محصول" target="/category" />
-          <SidebarItem icon="fas fa-cube" title="مدیریت محصول" target='/product' />
-          <SidebarItem target="/brands" icon="fas fa-copyright"  title="مدیریت برندها"/>
-          <SidebarItem target="/guaranties" icon="fab fa-pagelines" title="مدیریت گارانتی ها"/>
-          <SidebarItem target="/colors" icon="fas fa-palette"  title="مدیریت رنگ ها"/>
-          <SidebarItem target="/discounts" icon="fas fa-percentage" title="مدیریت تخفیف ها"/>
+          <SidebarItem icon="fas fa-stream" title="مدیریت گروه محصول" target="/category"  pTitle="read_categories"/>
+          <SidebarItem icon="fas fa-cube" title="مدیریت محصول" target='/product'  pTitle="read_products"/>
+          <SidebarItem target="/brands" icon="fas fa-copyright"  title="مدیریت برندها" pTitle="read_brands"/>
+          <SidebarItem target="/guaranties" icon="fab fa-pagelines" title="مدیریت گارانتی ها" pTitle="read_guarantees"/>
+          <SidebarItem target="/colors" icon="fas fa-palette"  title="مدیریت رنگ ها" pTitle="read_colors"/>
+          <SidebarItem target="/discounts" icon="fas fa-percentage" title="مدیریت تخفیف ها" pTitle="read_discounts"/>
           {/* <!-- =================================== --> */}
-          <SideBarGroupTitle title="سفارشات و سبد"/>
-          <SidebarItem targetPath="/carts" icon="fas fa-shopping-basket" title="مدیریت سبد ها"/>
-          <SidebarItem targetPath="/orders" icon="fas fa-luggage-cart" title="مدیریت سفارشات"/>
-          <SidebarItem targetPath="/deliveries" icon="fas fa-truck-loading" title="مدیریت نحوه ارسال"/>
+          <SideBarGroupTitle title="سفارشات و سبد" pTitle={["read_cards","read_orders","read_deliveries"]} />
+          <SidebarItem targetPath="/carts" icon="fas fa-shopping-basket" title="مدیریت سبد ها" pTitle="read_cards"/>
+          <SidebarItem targetPath="/orders" icon="fas fa-luggage-cart" title="مدیریت سفارشات" pTitle="read_orders"/>
+          <SidebarItem targetPath="/deliveries" icon="fas fa-truck-loading" title="مدیریت نحوه ارسال" pTitle="read_deliveries"/>
           {/* <!-- =================================== --> */}
-          <SideBarGroupTitle title="کاربران و همکاران"/>
-          <SidebarItem target="/users" icon="fas fa-users" title="مشاهده کاربران"/>
-          <SidebarItem target="/roles" icon="fas fa-user-tag" title="نقش ها"/>
-          <SidebarItem target="/permissions" icon="fas fa-shield-alt" title="مجوز ها"/>
+          <SideBarGroupTitle title="کاربران و همکاران" pTitle={["read_users","read_roles","read_permissions"]} />
+          <SidebarItem target="/users" icon="fas fa-users" title="مشاهده کاربران" pTitle="read_users"/>
+          <SidebarItem target="/roles" icon="fas fa-user-tag" title="نقش ها" pTitle="read_roles"/>
+          <SidebarItem target="/permissions" icon="fas fa-shield-alt" title="مجوز ها" pTitle="read_permissions"/>
           {/* <!-- =================================== --> */}
-          <SideBarGroupTitle title="ارتباطات"/>
-          <SidebarItem targetPath="/questions" icon="fas fa-question-circle" title="سوال ها"/>
-          <SidebarItem targetPath="/comments" icon="fas fa-comment" title="نظرات"/>
+          <SideBarGroupTitle title="ارتباطات" pTitle={["read_question","read_comments"]} />
+          <SidebarItem targetPath="/questions" icon="fas fa-question-circle" title="سوال ها" pTitle="read_question"/>
+          <SidebarItem targetPath="/comments" icon="fas fa-comment" title="نظرات" pTitle="read_comments"/>
        </div>
       </div>
     </section>
