@@ -7,7 +7,9 @@ import {
 import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import AddButtonLink from "../../components/form/AddButtunLink";
+import { useHasPermission } from "../../hook/permissiondHook";
 export const TableProduct = () => {
+  const hasPerm=useHasPermission("create_product")
   const [loading, setLoading] = useState(false);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
   const [pagesCount, setPagesCount] = useState(0); //کل صفحات
@@ -84,7 +86,7 @@ export const TableProduct = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
-        <AddButtonLink href={"/product/add-product"} />
+        {hasPerm &&  <AddButtonLink href={"/product/add-product"} />}
       </PaginateDataTable>
     </>
   );

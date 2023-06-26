@@ -10,6 +10,7 @@ import {
   deleteProductImageService,
   setMainProductImageService,
 } from "../../../services/product";
+import { ActionIcon } from "../../../components/ActionIcon";
 
 export const Gallery = () => {
   const location = useLocation();
@@ -25,13 +26,13 @@ export const Gallery = () => {
     formdata.append("image", image);
     // formdata.append("image", image.name);
 
-    console.log("image:",image)
-    console.log("image:",selectedProduct)
-    console.log("formdata:",formdata)
-    console.log("formdata Keys:")
-    for (var key of formdata.entries()) {
-      console.log(key[0] + ', ' + key[1]);
-  }
+    // console.log("image:",image)
+    // console.log("image:",selectedProduct)
+    // console.log("formdata:",formdata)
+    // console.log("formdata Keys:")
+  //   for (var key of formdata.entries()) {
+  //     console.log(key[0] + ', ' + key[1]);
+  // }
     if (
       image.type != "image/png" &&
       image.type != "image/jpeg" &&
@@ -115,13 +116,14 @@ export const Gallery = () => {
                   }`}
                   title={g.is_main ? "تصویر اصلی" : ""}
                 >
-                     <i
-                      className="fas fa-trash-alt text-danger pointer hoverable_text mx-2 font_1_2"
+                     <ActionIcon
+                      icon="fas fa-trash-alt text-danger"
+                      pTitle="delete_product_image"
                       title="حذف این تصویر"
                       onClick={() => handleDeleteImage(g.id)}
                     >
                       {" "}
-                    </i>
+                    </ActionIcon>
 
                     
                   <img
@@ -132,21 +134,21 @@ export const Gallery = () => {
                   
                   <div className="image_action_container">
                     {!g.is_main ? (
-                      <i
-                        className="fas fa-clipboard-check text-success pointer hoverable_text mx-2 font_1_2"
+                      <ActionIcon
+                        icon="fas fa-clipboard-check text-success"
+                        pTitle="default_product_image"
                         title="انتخاب به عنوان اصلی"
                         onClick={() => handleSetMainImage(g.id)}
                       >
                         {" "}
-                      </i>
+                      </ActionIcon>
                     ) : null}
-                    <i
-                      className="fas fa-trash-alt text-danger pointer hoverable_text mx-2 font_1_2"
+                    <ActionIcon
+                      icon="fas fa-trash-alt text-danger"
+                      pTitle="delete_product_image"
                       title="حذف این تصویر"
                       onClick={() => handleDeleteImage(g.id)}
-                    >
-                      {" "}
-                    </i>
+                    />
                   </div>
                 </div>
               ))

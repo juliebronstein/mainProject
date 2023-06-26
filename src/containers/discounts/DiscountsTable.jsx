@@ -6,8 +6,10 @@ import ConvertDate from "../../layouts/admin/utils/ConvertDate";
 import { PaginateTable } from "../../components/PaginateTable";
 import AddButtonLink from "../../components/form/AddButtunLink";
 import { Outlet } from "react-router-dom";
+import { useHasPermission } from "../../hook/permissiondHook";
 
 const DiscounTstable = () => {
+  const hasPerm = useHasPermission("create_discount");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const handelGetDiuscount = async () => {
@@ -27,7 +29,7 @@ const DiscounTstable = () => {
         const res = await deleteDicount(item.id);
         if (res.status === 200) {
           Alert("انجام شد", res.data.message, "success");
-          setData(old=>old.filter(i=>i.id!=item.id));
+          setData((old) => old.filter((i) => i.id != item.id));
         }
       } catch (err) {
       } finally {
@@ -57,7 +59,7 @@ const DiscounTstable = () => {
     {
       field: null,
       title: "برای همه",
-      elements: (item) => item.for_all? "همه": "تعدادی از محصولات"
+      elements: (item) => (item.for_all ? "همه" : "تعدادی از محصولات"),
     },
     {
       field: null,
@@ -68,7 +70,6 @@ const DiscounTstable = () => {
     },
   ];
 
-
   return (
     <>
       <PaginateTable
@@ -77,8 +78,13 @@ const DiscounTstable = () => {
         searchParams={searchParams}
         loading={loading}
       >
-        <AddButtonLink href={"/discounts/add-discount"} />
-        <Outlet context={{setData}} />
+        {hasPerm && (
+          <>
+            {" "}
+            <AddButtonLink href={"/discounts/add-discount"} />
+            <Outlet context={{ setData }} />
+          </>
+        )}
       </PaginateTable>
     </>
   );

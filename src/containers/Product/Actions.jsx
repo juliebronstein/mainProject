@@ -1,38 +1,41 @@
 import React from "react";
 import {  useNavigate } from "react-router-dom";
+import { ActionIcon } from "../../components/ActionIcon";
 
 export const Actions = ({ item, handelDeleteProduct, setEditProduct }) => {
   const navigate = useNavigate();
   return (
     <>
-      <i
-        className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
+      <ActionIcon
+        icon="fas fa-edit text-warning"
+        pTitle="update_product"
         title="ویرایش محصول"
         onClick={() =>
           navigate("/product/add-product", { state: { productEdit: item } })
         }
-      ></i>
-      <i
-        className="fas fa-receipt text-success mx-1 hoverable_text pointer has_tooltip"
+      />
+      <ActionIcon
+        icon="fas fa-receipt text-success"
+        pTitle="create_product_attr"
         title="افزودن ویژگی"
         onClick={() =>
           navigate("/product/set-attr", { state: { selectedProduct: item } })
         }
-      ></i>
-      <i
-        className="fas fa-image text-primary mx-1 hoverable_text pointer has_tooltip"
+      />
+      <ActionIcon
+        icon="fas fa-image text-primary"
+        pTitle="create_product_image"
         title="گالری تصاویر"
         onClick={() =>
           navigate("/product/gallery", { state: { selectedProduct: item } })
         }
-      ></i>
-      <i
-        className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
+      ></ActionIcon>
+      <ActionIcon
+        icon="fas fa-times text-danger"
+        pTitle="delete_product"
         title="حذف محصول"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
         onClick={() => handelDeleteProduct(item)}
-      ></i>
+      ></ActionIcon>
     </>
   );
 };

@@ -35,7 +35,7 @@ const handleDeleteBrans=async(rowData)=>{
    if( await Confirm("حذف برند",`آیا از حذف ${rowData.original_name} اطمینان دارید؟`)){
     try{
         const res=await deleteBrandsService(rowData.id)
-        console.log(res.status)
+        
         if((res.status=200))
         {
             Alert("حذف","رکورد مورد نظر حذف شد", "success")

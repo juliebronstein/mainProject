@@ -8,8 +8,10 @@ import {
 import { PaginateTable } from "../../components/PaginateTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import CheckBox from "./AditionalTable/CheckBox";
+import { useHasPermission } from "../../hook/permissiondHook";
 
 const GuarantiesTable = () => {
+  const hasPerm=useHasPermission("create_guarantee")
   const [data, setData] = useState([]);
   const [datadel, setDatadel] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
@@ -115,11 +117,11 @@ const GuarantiesTable = () => {
         searchParams={searchParams}
         loading={loading}
       >
-        <AddGuaranty
+        {hasPerm && <AddGuaranty
           editeGuarantyId={editeGuarantyId}
           setEditeGuarantyId={setEditeGuarantyId}
           setData={setData}
-        />
+        />}
       </PaginateTable>
     </>
   );

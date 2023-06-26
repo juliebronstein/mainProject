@@ -22,7 +22,6 @@ export const onSubmit = async (values, actions, setData, selectedUserId,setSelec
         ...values,
         birth_date: values.birth_date ? ConvertDateToMiladi(values.birth_date) : null
     }
-     console.log("values:",values)
     if (selectedUserId) {
         const res=await editUserService(selectedUserId,values)
         if(res.status===200){
@@ -36,7 +35,6 @@ export const onSubmit = async (values, actions, setData, selectedUserId,setSelec
         }
     }else{
         const res = await addNewUserService(values)
-        console.log("res:",res)
         if (res.status == 201) {
             Alert('انجام شد', res.data.message, 'success')
             actions.resetForm();
@@ -44,7 +42,7 @@ export const onSubmit = async (values, actions, setData, selectedUserId,setSelec
             setSelectedRoles([])
             setUserToEdit(null)
         }else{
-            console.log("res.data",res.data)
+            console.log(res.data)
         }
     } 
 };

@@ -1,32 +1,38 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ActionIcon } from "../../components/ActionIcon";
 
 export const Actions = ({ item, handelDeleteRole }) => {
   const navigate = useNavigate();
   return (
     <>
-      <i
-        className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
+      <ActionIcon
+        icon="fas fa-edit text-warning"
+        pTitle="update_role"
         title="ویرایش نقش"
-        data-bs-placement="top"
-        data-bs-toggle="tooltip"
-        onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"role"} })}}
-      ></i>
-      <i
-        className="fas fa-fingerprint text-info mx-1 hoverable_text pointer has_tooltip"
+        onClick={() => {
+          navigate("/roles/add-role", {
+            state: { selectedRoleId: item.id, editeType: "role" },
+          });
+        }}
+      ></ActionIcon>
+      <ActionIcon
+        icon="fas fa-fingerprint text-info"
+        pTitle="update_role_permissions"
         title="دسترسی ها"
-        data-bs-placement="top"
-        data-bs-toggle="tooltip"
-        onClick={() => {navigate("/roles/add-role", { state: { selectedRoleId: item.id ,editeType:"permissions"} })}}
-      ></i>
+        onClick={() => {
+          navigate("/roles/add-role", {
+            state: { selectedRoleId: item.id, editeType: "permissions" },
+          });
+        }}
+      ></ActionIcon>
 
-      <i
-        className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
+      <ActionIcon
+        icon="fas fa-times text-danger"
+        pTitle="update_role_permissions"
         title="حذف نفش"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
         onClick={() => handelDeleteRole(item)}
-      ></i>
+      ></ActionIcon>
     </>
   );
 };

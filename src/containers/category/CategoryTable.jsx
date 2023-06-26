@@ -7,8 +7,10 @@ import { AddCategory } from "./AddCategory";
 import { Actions } from "./tableAdditions/Action";
 import { ShowInMenue } from "./tableAdditions/ShowInMenue";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
+import { useHasPermission } from "../../hook/permissiondHook";
 
 export const CategoryTable = () => {
+  const hasPerm=useHasPermission("create_category")
   const params = useParams();
   const [loading, setLoading] = useState(false);
   //const location = useLocation();
@@ -86,7 +88,7 @@ export const CategoryTable = () => {
         searchParams={searchParams}
         loading={loading}
       >
-        <AddCategory setForceRender={setForceRender} setForceRenderP={setForceRenderP} forceRenderP={forceRenderP} />
+      { hasPerm && <AddCategory setForceRender={setForceRender} setForceRenderP={setForceRenderP} forceRenderP={forceRenderP} />}
       </PaginateTable>
     </>
   );

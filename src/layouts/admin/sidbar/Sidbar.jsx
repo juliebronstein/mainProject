@@ -30,9 +30,9 @@ const urlImage=user.gender?ulr+"man.jpg":ulr+"woman.jpg"
           <SidebarItem target="/discounts" icon="fas fa-percentage" title="مدیریت تخفیف ها" pTitle="read_discounts"/>
           {/* <!-- =================================== --> */}
           <SideBarGroupTitle title="سفارشات و سبد" pTitle={["read_cards","read_orders","read_deliveries"]} />
-          <SidebarItem targetPath="/carts" icon="fas fa-shopping-basket" title="مدیریت سبد ها" pTitle="read_cards"/>
+          <SidebarItem target="/carts" icon="fas fa-shopping-basket" title="مدیریت سبد ها" pTitle="read_cards"/>
           <SidebarItem targetPath="/orders" icon="fas fa-luggage-cart" title="مدیریت سفارشات" pTitle="read_orders"/>
-          <SidebarItem targetPath="/deliveries" icon="fas fa-truck-loading" title="مدیریت نحوه ارسال" pTitle="read_deliveries"/>
+          <SidebarItem target="/deliveries" icon="fas fa-truck-loading" title="مدیریت نحوه ارسال" pTitle="read_deliveries"/>
           {/* <!-- =================================== --> */}
           <SideBarGroupTitle title="کاربران و همکاران" pTitle={["read_users","read_roles","read_permissions"]} />
           <SidebarItem target="/users" icon="fas fa-users" title="مشاهده کاربران" pTitle="read_users"/>

@@ -40,8 +40,8 @@ export const onSubmit = async (
       const res = await addNewDicount(values);
       if (res.status == 201) {
         Alert("انجام شد", res.data.message, "success");
-       const x=await setData((old) => [...old, res.data.data]);
-       console.log(x)
+        setData((old) => [...old, res.data.data]);
+      
         actions.resetForm();
       }
     }

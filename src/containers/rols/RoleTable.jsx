@@ -6,8 +6,9 @@ import { Alert } from 'react-bootstrap'
 import { Confirm } from '../../layouts/admin/utils/alert'
 import AddButtonLink from '../../components/form/AddButtunLink'
 import { Outlet } from 'react-router-dom'
+import { useHasPermission } from '../../hook/permissiondHook'
 export const RoleTable = () => {
-
+  const hasPerm=useHasPermission("create_role")
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     
@@ -72,8 +73,10 @@ const handelGetAllRole=async()=>{
         searchParams={searchParams}
         loading={loading}
       >
+      {hasPerm &&  <>
          <AddButtonLink href="/roles/add-role" />
          <Outlet context={{setData}} />
+        </>}
       </PaginateTable>
     </div>
 

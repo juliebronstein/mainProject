@@ -3,7 +3,6 @@ import { Alert } from "../../../layouts/admin/utils/alert"
 import { getCategoryAttributes } from "../../../services/attributes";
 import * as Yup from "yup";
 export const onSubmit=async(values, actions,id)=>{
-    console.log(values)
     let data={}
     for(const key in values)
      if(values[key]) data={...data, [key] :{value:values[key]}}

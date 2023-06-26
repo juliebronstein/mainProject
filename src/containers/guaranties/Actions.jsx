@@ -1,22 +1,21 @@
 import React from "react";
+import { ActionIcon } from "../../components/ActionIcon";
 export const Actions = ({ item, handleDeleteGuaranty, setEditeGuarantyId }) => {
   return (
     <>
-      <i
-        className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-        title="ویرایش رنگ"
-        data-bs-toggle="modal"
-        data-bs-placement="top"
+      <ActionIcon
+        icon="fas fa-edit text-warning"
+        pTitle="update_guarantee"
+        title="ویرایش گارانتی"
         data-bs-target="#add_guarantee_modal"
         onClick={() => { setEditeGuarantyId(item.id);
         
         }}
-      ></i>    
+      ></ActionIcon>    
       <i
-        className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-        title="حذف رنگ"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
+        icon="fas fa-times text-danger"
+        pTitle="delete_guarantee"
+        title="حذف گارانتی"
         onClick={() => {
           handleDeleteGuaranty(item.id);
         }}

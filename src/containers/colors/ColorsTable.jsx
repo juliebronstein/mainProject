@@ -6,10 +6,11 @@ import { Actions } from "./Actions";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import { ConvertColor } from "./ConvertColor";
 import AddColor from "./AddColor";
+import { useHasPermission } from "../../hook/permissiondHook";
 
 const ColorsTable = () => {
-  const [editeColorId, setEditeColorId] = useState(null)
-
+  const hasPerm = useHasPermission("create_color");
+  const [editeColorId, setEditeColorId] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     handleGetColors();
@@ -54,30 +55,33 @@ const ColorsTable = () => {
   const dataInf = [
     { field: "id", title: "#" },
     { field: "title", title: "نام رنگ" },
-     {
-      field: null, 
+    {
+      field: null,
       title: "رنگ",
       elements: (item) => <ConvertColor item={item} />,
     },
     {
-      field: null, 
+      field: null,
       title: "تاریخ ایجاد",
       elements: (item) => <ConvertDate item={item.created_at} />,
     },
     {
-      field: null, 
+      field: null,
       title: "عملیات",
       //در پرانتز اول دریافت میکنیم و بعد میدیمش به پرانز دوم ینی به
       //addtionElement()
       //ازکجا دریافت کردیم از
       //paginateTable
       elements: (item) => (
-        <Actions item={item} handleDeleteColor={handleDeleteColor} setEditeColorId={setEditeColorId} />
+        <Actions
+          item={item}
+          handleDeleteColor={handleDeleteColor}
+          setEditeColorId={setEditeColorId}
+        />
       ),
     },
     // { field: "code", title: "کد رنگ" },
   ];
-
 
   return (
     <>
@@ -87,7 +91,13 @@ const ColorsTable = () => {
         searchParams={searchParams}
         loading={loading}
       >
-        <AddColor setData={setData} editeColorId={editeColorId} setEditeColorId={setEditeColorId} />
+        {hasPerm && (
+          <AddColor
+            setData={setData}
+            editeColorId={editeColorId}
+            setEditeColorId={setEditeColorId}
+          />
+        )}
       </PaginateTable>
     </>
   );

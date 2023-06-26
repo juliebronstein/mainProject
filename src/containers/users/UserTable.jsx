@@ -7,8 +7,10 @@ import AddButtonLink from "../../components/form/AddButtunLink";
 import { Outlet } from "react-router-dom";
 import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Roles } from "./Roles";
+import { useHasPermission } from "../../hook/permissiondHook";
 
 export const UserTable = () => {
+  const hasPerm=useHasPermission("create_user")
   const [EditeUserId, setEditeUserId] = useState(null);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
   const [pagesCount, setPagesCount] = useState(0); //کل صفحات
@@ -101,8 +103,10 @@ export const UserTable = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
+        { hasPerm && <>
         <AddButtonLink href="/users/add-user" />
         <Outlet context={{ setData }} />
+        </>}
       </PaginateDataTable>
     </>
   );

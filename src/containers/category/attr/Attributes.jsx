@@ -12,8 +12,10 @@ import { Alert, Confirm } from "../../../layouts/admin/utils/alert";
 import { PrevPageButton } from "../../../components/PrevPageButton";
 
 import { AddAttr } from "./AddAttr";
+import { useHasPermission } from "../../../hook/permissiondHook";
 
 const Attributes = () => {
+  const hasPerm=useHasPermission("create_category")
   const [data, setData] = useState([]);
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -120,13 +122,13 @@ const Attributes = () => {
 
       <div className={`container `}>
         <div className="row justify-content-center">
-          <AddAttr
+         {hasPerm && <AddAttr
             editeAttr={editeAttr}
             setEditeAttr={setEditeAttr}
             location={location}
             setData={setData}
             reinitialValues={reinitialValues}
-          />
+          />}
 
           <hr />
           <PaginateTable
