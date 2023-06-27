@@ -5,7 +5,7 @@ export const ModalContainer = ({
   children,
   id,
   title,
-  fullscreen,
+  fullScreen,
   className,
   closeFunction,
 }) => {
@@ -16,7 +16,7 @@ export const ModalContainer = ({
       tabIndex="-1"
       aria-hidden="true"
     >
-      <div className={`modal-dialog animate__animated animate__fadeInDown animate__fast  ${fullscreen ? "modal-fullscreen" : null}`}>
+      <div className={`modal-dialog animate__animated animate__fadeInDown animate__fast  ${fullScreen ? "modal-fullscreen" : null}`}>
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title flex-fill" id="exampleModalLabel">

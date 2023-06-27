@@ -9,7 +9,6 @@ import { Outlet } from 'react-router-dom';
 import { PaginateDataTable } from '../../components/PaginateDataTable';
 
 export const CartTable = () => { 
-  const hasPerm = useHasPermission("create_cart");
 const [EditeUserId, setEditeUserId] = useState(null);
 const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
 const [pagesCount, setPagesCount] = useState(0); //کل صفحات
@@ -52,7 +51,7 @@ const handelSearch = async (char) => {
 const searchParams = {
   title: "جستجو",
   placeholdert: "قسمتی از شماره تماس را وارد نمایید",
-  searchField: "user.phone",
+  searchField: "شماره همراه",//////////////////////////////////////
 };
 
 const dataInf = [
@@ -71,11 +70,11 @@ const dataInf = [
   // { field: "email", title: "ایمیل" },
 
 
-  // {
-  //   field: null,
-  //   title: "جنسیت",
-  //   elements: (item) => (item.gender ? "آقا" : "خانم"),
-  // },
+  {
+    field: null,
+    title: "تعداد کالاها",
+    elements: (item) => item.items.length,
+  },
   {
     field: null,
     title: "عملیات",
@@ -97,10 +96,10 @@ return (
     setCurentPage={setCurentPage}
     handelSearch={handelSearch}
   >
-    { hasPerm && <>
+   
     <AddButtonLink href="/carts/add-cart" />
     <Outlet context={{ setData }} />
-    </>}
+  
   </PaginateDataTable>
 </>
 )

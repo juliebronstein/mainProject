@@ -81,7 +81,7 @@ export const Content = () => {
         }
         {hasRoleCart &&
         (<Route path='/carts' element={<Carts/>}>
-          <Route path='add-cart' element={<AddCart/>}/>
+          <Route path='add-cart'  element={<PermComponent component={<AddCart />} pTitle="create_cart"/>} />
         </Route> )
         }
        
