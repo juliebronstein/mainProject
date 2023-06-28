@@ -7,6 +7,9 @@ export const getProductsService = (page, countOnPage, searchChar) => {
 export const getAllProductsService = () => {
   return httpService(`/api/admin/products/all_titles`, "get");
 };
+export const getOneProductsService = (id) => {
+  return httpService(`/api/admin/products/${id}`, "get");
+};
 export const deleteProductService = (id) => {
   return httpService(`/api/admin/products/${id}`, "delete");
 };
