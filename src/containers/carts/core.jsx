@@ -8,7 +8,13 @@ export const initialValues = {
     guarantee_id: "",
     count: "",
 };
-export const onSubmit=async()=>{}
+export const onSubmit=async(actions, values, setData, setSelectedProducts, setSelectedProductsInfo, curentProduct)=>{
+   setSelectedProducts(old=>[...old,{...values}])
+   
+   actions.resetForm()
+   
+  console.log(curentProduct)
+}
 export const validationSchema = Yup.object().shape({
     user_id : Yup.number().typeError("فقط عدد وارد کنید").required("لطفا این قسمت را پر کنید"),
     product_id : Yup.number().typeError("فقط عدد وارد کنید").required("لطفا این قسمت را پر کنید"),

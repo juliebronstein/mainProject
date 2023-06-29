@@ -10,6 +10,7 @@ import {
 import FormikError from "../../components/form/FromikError";
 import SelectSearch from "react-select-search";
 import "react-select-search/style.css";
+import { Alert } from "../../layouts/admin/utils/alert";
 const AddCart = () => {
   const navigate = useNavigate();
   const { setData } = useOutletContext();
@@ -18,10 +19,10 @@ const AddCart = () => {
   const [allProduct, setAllProduct] = useState([]);
   const [colors, setColors] = useState([]);
   const [guarantees, setGuarantees] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [selectedProductsInfo, setSelectedProductsInfo] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);//for send to server
+  const [selectedProductsInfo, setSelectedProductsInfo] = useState([]);//for show in page
   const [curentProduct, setCurentProduct] = useState([]);
-  console.log(editId);
+  // console.log(editId);
 
   const handelAllProducts = async () => {
     const res = await getAllProductsService();
@@ -35,7 +36,8 @@ const AddCart = () => {
   };
 
   const handeChangeSelectedProduct = async (e, formik) => {
-    console.log(e);
+    // console.log(e);
+formik.setFieldValue("product_id", e);
     const res = await getOneProductsService(e);
     if (res.status == 200) {
       const product = res.data.data;
@@ -62,11 +64,11 @@ const AddCart = () => {
         <div className="">
           <Formik
             initialValues={initialValues}
-            onSubmit={(aactions, values) => onSubmit(aactions, values, setData)}
+            onSubmit={(values, actions)=>onSubmit(values, actions, setSelectedProducts, setSelectedProductsInfo, curentProduct)}
             validationSchema={validationSchema}
             // enableReinitialize
           >
-            {(formik) => {
+            {formik => {
               return (
                 <Form>
                   <div className="row col-12 my-3 justify-content-center">
@@ -74,7 +76,7 @@ const AddCart = () => {
                       <Field
                         type="text"
                         name="user_id"
-                        disable={allProduct.length > 0}
+                        disable={selectedProducts.length > 0}
                         className="form-control"
                         placeholder="آی دی مشتری"
                       />
@@ -118,7 +120,7 @@ const AddCart = () => {
                     <div className="col-12 col-md-4 col-lg-2 my-1">
                       <Field
                         type="number"
-                        name="user_id"
+                        name="count"
                         className="form-control"
                         placeholder="تعداد"
                       />
@@ -127,15 +129,8 @@ const AddCart = () => {
                     </div>
 
                     <div className="col-4 col-lg-1 d-flex justify-content-center align-items-center my-1">
-                      <i
-                        className="fas fa-check text-light bg-success rounded-circle p-2 mx-1 hoverable_text 
-                        hoverable pointer has_tooltip hoverable_text"
-                        title="ثبت ویژگی"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        onClick={()=>formik.submitForm()}
-                      ></i>
-                    </div>
+                                                <i className="fas fa-check text-light bg-success rounded-circle p-2 mx-1 hoverable_text hoverable pointer has_tooltip hoverable_text" title="ثبت فرم" data-bs-toggle="tooltip" data-bs-placement="top" onClick={()=>formik.submitForm()}></i>
+                                            </div>
                     <hr className="mt-3" />
                   </div>
                 </Form>
@@ -191,7 +186,8 @@ const AddCart = () => {
             </div>
             <div className="col-4 col-lg-1 d-flex justify-content-center align-items-center my-1">
               <i
-                className="fas fa-check text-light bg-success rounded-circle p-2 mx-1 hoverable_text hoverable pointer has_tooltip hoverable_text"
+                className="fas fa-check text-light bg-success rounded-circle p-2 mx-1 hoverable_text
+                    hoverable pointer has_tooltip hoverable_text"
                 title="ثبت ویژگی"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
@@ -272,3 +268,4 @@ const AddCart = () => {
 };
 
 export default AddCart;
+
