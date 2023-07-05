@@ -30,7 +30,7 @@ export const onSubmit=async(values,actions,setData,selectedRoleId,editType)=>{
   if(res.status===201){
   Alert("انجام شد",res.data.message,"success")
   setData(old=>[...old,res.data.data])
-  actions.reserForm()
+  actions.resetForm();
 }}
 }
 // export const validationSchema= Yup.object({
