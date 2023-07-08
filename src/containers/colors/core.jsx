@@ -41,7 +41,7 @@ export const validationSchema = Yup.object({
         // Alert( "افزودن",`رنگ ${values.title} اضافه شد`,"success")
         Alert("انجام شد", res.data.message, "success");
         setData((oldData) => {
-          return [...oldData, values];
+          return [...oldData, res.data.data];
         });
         actions.resetForm();
       }

@@ -14,7 +14,8 @@ export const PrevPageButton = () => {
     <button
       className="btn btn-sm btn-secondary"
       tabIndex={1000}
-      onClick={(e)=>handelBack(e)}
+      type="button"
+      onClick={(e)=> navigate(-1)}
     >
       بازگشت
     </button>

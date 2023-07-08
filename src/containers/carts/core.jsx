@@ -11,16 +11,16 @@ export const initialValues = {
 export const onSubmit=async(actions, values, setSelectedProductsInfo, currentProduct)=>{
 
    setSelectedProductsInfo(old=>[...old,{
-    user_id:values.user_id,
     id:currentProduct.id+Math.random(),
     product:currentProduct,
-    guarantee: values.guarantee_id > 0 ? currentProduct.guarantees.filter(g=>g.id == values.guarantee_id)[0].title : null,
-    color: values.color_id > 0 ? currentProduct.colors.filter(c=>c.id == values.color_id)[0].code : null,
-    // guarantee:currentProduct.guarantees.find(g=>g.id==values.guarantee_id).title,
-    count:values.count
+    guarantee: values.guarantee_id > 0 ? currentProduct.guarantees.filter(g=>g.id == values.guarantee_id)[0].id : null,
+    color: values.color_id > 0 ? currentProduct.colors.filter(c=>c.id == values.color_id)[0].id : null,
+    guaranteeTitle: values.guarantee_id > 0 ? currentProduct.guarantees.filter(g=>g.id == values.guarantee_id)[0].title : null,
+    colorCode: values.color_id > 0 ? currentProduct.colors.filter(c=>c.id == values.color_id)[0].code : null,
+     count:values.count
    }])
  
-   actions.resetForm();  
+//    actions.resetForm();  
 }
 export const validationSchema = Yup.object().shape({
     user_id : Yup.number().typeError("فقط عدد وارد کنید").required("لطفا این قسمت را پر کنید"),

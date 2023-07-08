@@ -19,6 +19,8 @@ const Ckeditor = ({name, label, className, placeholder}) => {
                         onChange={ ( event, editor ) => {
                             const data = editor.getData();
                             form.setFieldValue(name, data)
+                            // console.log("name",name)
+                            // console.log("data",data)
                         }}
                         onBlur={(event, editor) => {
                             form.setFieldTouched(name)

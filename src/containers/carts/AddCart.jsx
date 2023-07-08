@@ -12,21 +12,41 @@ import SelectSearch from "react-select-search";
 import "react-select-search/style.css";
 import { Alert } from "../../layouts/admin/utils/alert";
 import { numberWithCommas } from "../../layouts/admin/utils/number";
-import { addNewCartService } from "../../services/cart";
+import { addNewCartService, editCartService, getSingellCartsService } from "../../services/cart";
 const AddCart = () => {
   const navigate = useNavigate();
-  const { handleGetCarts  } = useOutletContext();
+  const { handleGetCarts } = useOutletContext();
   const location = useLocation();
   const editId = location.state?.editId;
   const [allProduct, setAllProduct] = useState([]);
   const [colors, setColors] = useState([]);
   const [guarantees, setGuarantees] = useState([]);
-  // const [selectedProducts, setSelectedProducts] = useState([]); //for send to server
-  const [selectedProductsInfo, setSelectedProductsInfo] = useState([]); //for show in page
+  const [selectedProductsInfo, setSelectedProductsInfo] = useState([]);
   const [currentProduct, setCurrentProduct] = useState([]);
+  const [reInitialValues, setReInitialValues] = useState(null);
 
-  // console.log(editId);
+  
 
+  const handelGetProduct = async () => {
+    const res = await getSingellCartsService(editId);
+    let products = [];
+    if (res.status == 200) {
+      const cart = res.data.data;
+      cart.items.map((i) => {
+        products.push({
+          id: i.id,
+          product: i.product,
+          guarantee: i.guarantee?.id || "",
+          color: i.color?.id || "",
+          guaranteeTitle: i.guarantee?.title,
+          colorCode: i.color.code,
+          count: i?.count,
+        });
+      });
+    }
+    setSelectedProductsInfo(products);
+    setReInitialValues({ ...initialValues, user_id: res.data.data.user_id });
+  };
   const handelAllProducts = async () => {
     const res = await getAllProductsService();
     res.status == 200 &&
@@ -50,27 +70,44 @@ const AddCart = () => {
     }
   };
   useEffect(() => {
+    editId && handelGetProduct();
     handelAllProducts();
   }, []);
   const handleConfirmAddCart = async (formik) => {
-    console.log("formik.values.user_id",formik.values.user_id)
-    let newProduct=[]
-    for (const p of selectedProductsInfo) 
-    newProduct.push({
-      product_id: p.product.id,
-      color_id: p.product?.color_id || "",
-      guarantee_id: p.product?.guarantee_id || "",
-      count:p.count
-    })
-    const res = await addNewCartService({
-        user_id: selectedProductsInfo[0]?.user_id,
-        products: newProduct
-    })
-    if (res.status === 201) {
-        Alert('انجام شد', res.data.message, 'success');
-        handleGetCarts ()
+    const userId=formik.values.user_id
+    let newProduct = [];
+    for (const p of selectedProductsInfo) {
+      newProduct.push({
+        product_id: p.product.id,
+        color_id: p.color,
+        guarantee_id: p.guarantee,
+        count: p.count,
+      });
+   
+    }   const value={
+        user_id: userId,
+        products: newProduct,
+      }
+    if(editId){
+   console.log("editId",editId)
+   console.log("value",value)
+      const res = await editCartService(editId,value);
+      if (res.status == 200) {
+        Alert("انجام شد", res.data.message, "success");
+        handleGetCarts();
         navigate(-1);
+      }
     }
+    else{
+      const res = await addNewCartService(value);
+      if (res.status === 201) {
+        Alert("انجام شد", res.data.message, "success");
+        handleGetCarts();
+        navigate(-1);
+      }
+      
+    }
+  
   };
 
   const handleDeleteProduct = (id) => {
@@ -81,18 +118,18 @@ const AddCart = () => {
       <ModalContainer
         className="show d-block"
         id={"add_cart_modal"}
-        title={"جزئیات و افزودن سبد خرید"}
+        title={editId ? "جرئیات و ویرایش سبد خرید" : "جزئیات و افزودن سبد خرید"}
         fullScreen={true}
         closeFunction={() => navigate(-1)}
       >
         <div className="">
           <Formik
-            initialValues={initialValues}
+            initialValues={reInitialValues || initialValues}
             onSubmit={(values, actions) =>
               onSubmit(actions, values, setSelectedProductsInfo, currentProduct)
             }
             validationSchema={validationSchema}
-            // enableReinitialize
+            enableReinitialize
           >
             {(formik) => {
               return (
@@ -125,7 +162,9 @@ const AddCart = () => {
                         options={colors}
                         search={true}
                         placeholder="رنگ"
-                        onChange={(e) => formik.setFieldValue("color_id", e)}
+                        onChange={(e) => {
+                          formik.setFieldValue("color_id", e);
+                        }}
                       />
                       <br />
                       <ErrorMessage name="colors" component={FormikError} />
@@ -180,11 +219,11 @@ const AddCart = () => {
                               onClick={() => handleDeleteProduct(p.id)}
                             ></i>
                             {p.product.productName}
-                            (قیمت واحد: {numberWithCommas(p.product.price)}) (گارانتی:{" "}
-                            {p?.guarantee}) ({p.count} عدد)
+                            (قیمت واحد: {numberWithCommas(p.product.price)})
+                            (گارانتی: {p?.guaranteeTitle}) ({p.count} عدد)
                             <i
                               className="fas fa-circle mx-1"
-                              style={{ color: p?.color.code }}
+                              style={{ color: p?.colorCode }}
                             ></i>
                           </span>
                         </div>

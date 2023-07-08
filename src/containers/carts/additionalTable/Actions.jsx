@@ -21,7 +21,7 @@ export const Actions = ({ item, handleDeleteCart }) => {
         pTitle="delete_carts"
         title="حذف سبد"
         onClick={() => {
-          handleDeleteCart(item);
+          handleDeleteCart(item.id);
         }}
       />
     </>
