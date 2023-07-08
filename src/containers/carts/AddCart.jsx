@@ -15,13 +15,13 @@ import { numberWithCommas } from "../../layouts/admin/utils/number";
 import { addNewCartService } from "../../services/cart";
 const AddCart = () => {
   const navigate = useNavigate();
-  const { setData } = useOutletContext();
+  const { handleGetCarts  } = useOutletContext();
   const location = useLocation();
   const editId = location.state?.editId;
   const [allProduct, setAllProduct] = useState([]);
   const [colors, setColors] = useState([]);
   const [guarantees, setGuarantees] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]); //for send to server
+  // const [selectedProducts, setSelectedProducts] = useState([]); //for send to server
   const [selectedProductsInfo, setSelectedProductsInfo] = useState([]); //for show in page
   const [currentProduct, setCurrentProduct] = useState([]);
 
@@ -52,23 +52,30 @@ const AddCart = () => {
   useEffect(() => {
     handelAllProducts();
   }, []);
-  const handleConfirmAddCart = async (formik)=>{
+  const handleConfirmAddCart = async (formik) => {
+    console.log("formik.values.user_id",formik.values.user_id)
+    let newProduct=[]
+    for (const p of selectedProductsInfo) 
+    newProduct.push({
+      product_id: p.product.id,
+      color_id: p.product?.color_id || "",
+      guarantee_id: p.product?.guarantee_id || "",
+      count:p.count
+    })
     const res = await addNewCartService({
-        user_id: formik.values.user_id,
-        products: selectedProducts
+        user_id: selectedProductsInfo[0]?.user_id,
+        products: newProduct
     })
     if (res.status === 201) {
         Alert('انجام شد', res.data.message, 'success');
-        setData()
+        handleGetCarts ()
         navigate(-1);
     }
-}
+  };
 
-const handleDeleteProduct = (id)=>{
-    const index = selectedProductsInfo.findIndex(p=>p.id == id)
-    setSelectedProducts(old=> old.splice(index,1))
-    setSelectedProductsInfo(old=>old.filter(o=>o.id != id))
-}
+  const handleDeleteProduct = (id) => {
+    setSelectedProductsInfo((old) => old.filter((o) => o.id != id));
+  };
   return (
     <>
       <ModalContainer
@@ -82,14 +89,7 @@ const handleDeleteProduct = (id)=>{
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) =>
-              onSubmit(
-                actions,
-                values,
-                setData,
-                setSelectedProducts,
-                setSelectedProductsInfo,
-                currentProduct
-              )
+              onSubmit(actions, values, setSelectedProductsInfo, currentProduct)
             }
             validationSchema={validationSchema}
             // enableReinitialize
@@ -102,7 +102,7 @@ const handleDeleteProduct = (id)=>{
                       <Field
                         type="text"
                         name="user_id"
-                        disable={(selectedProducts.length > 0).toString()}
+                        // disable={(selectedProductsInfo.length > 0).toString()}
                         className="form-control"
                         placeholder="آی دی مشتری"
                       />
@@ -169,25 +169,22 @@ const handleDeleteProduct = (id)=>{
                     <hr className="mt-3" />
                   </div>
                   <div className="row justify-content-center">
-                    {selectedProductsInfo.map((product) => (
-                      <div
-                        className="col-12 col-md-6 col-lg-4"
-                        key={product.id}
-                      >
+                    {selectedProductsInfo.map((p) => (
+                      <div className="col-12 col-md-6 col-lg-4" key={p.id}>
                         <div className="input-group my-3 dir_ltr">
                           <span className="input-group-text text-end font_08 w-100 text_truncate">
                             <i
                               className="fas fa-times text-danger hoverable_text pointer mx-1 has_tooltip"
                               title="حذف محصول از سبد"
                               data-bs-placement="top"
-                              onClick={() => handleDeleteProduct(product.id)}
+                              onClick={() => handleDeleteProduct(p.id)}
                             ></i>
-                            {product.productName}
-                            (قیمت واحد: {numberWithCommas(product.price)})
-                            (گارانتی: {product.guarantee}) ({product.count} عدد)
+                            {p.product.productName}
+                            (قیمت واحد: {numberWithCommas(p.product.price)}) (گارانتی:{" "}
+                            {p?.guarantee}) ({p.count} عدد)
                             <i
                               className="fas fa-circle mx-1"
-                              style={{ color: product.color }}
+                              style={{ color: p?.color.code }}
                             ></i>
                           </span>
                         </div>
@@ -201,7 +198,7 @@ const handleDeleteProduct = (id)=>{
                             <span className="input-group-text justify-content-center w-75">
                               {numberWithCommas(
                                 selectedProductsInfo
-                                  .map((p) => p.count * p.price)
+                                  .map((p) => p.count * p.product.price)
                                   .reduce((a, b) => a + b)
                               )}
                             </span>

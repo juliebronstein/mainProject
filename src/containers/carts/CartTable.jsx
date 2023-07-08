@@ -18,10 +18,10 @@ const [loading, setLoading] = useState(false);
 const [forceRender, setForceRender] = useState(false);
 const [searchChar, setSearchChar] = useState("");
  useEffect(() => {
-  getAllUsers(curentPage, countOnPage, searchChar);
+  handleGetCarts (curentPage, countOnPage, searchChar);
 }, []);
 
-const getAllUsers = async (page, count, char) => {
+const handleGetCarts  = async (page, count, char) => {
   try {
     setLoading(true);
     const res = await getAllCartsService(page, count, char);
@@ -39,14 +39,14 @@ const handleDeleteCart = async (itemId) => {
       const res = await deleteCartService(itemId);
       if (res.status === 200) {
         Alert("انجام شد", res.data.message, "success");
-        getAllUsers(curentPage, countOnPage, searchChar);
+        handleGetCarts (curentPage, countOnPage, searchChar);
       }
     } catch (err) {}
   }
 };
 const handelSearch = async (char) => {
   setSearchChar(char);
-  getAllUsers(1, countOnPage, char);
+  handleGetCarts (1, countOnPage, char);
 };
 const searchParams = {
   title: "جستجو",
@@ -98,7 +98,7 @@ return (
   >
    
     <AddButtonLink href="/carts/add-cart" />
-    <Outlet context={{ setData }} />
+    <Outlet context={{ handleGetCarts }} />
   
   </PaginateDataTable>
 </>

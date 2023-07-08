@@ -19,14 +19,6 @@ export const Actions = ({ item, handleDeleteCart }) => {
        <ActionIcon
         icon="fas fa-times text-danger"
         pTitle="delete_carts"
-        title="آیتم سبد"
-        onClick={() => {
-          navigation('/carts/add-cart',{state:{editId:item.id}})
-        }}
-      />
-       <ActionIcon
-        icon="fas fa-times text-danger"
-        pTitle="delete_carts"
         title="حذف سبد"
         onClick={() => {
           handleDeleteCart(item);
