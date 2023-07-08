@@ -8,20 +8,20 @@ export const initialValues = {
     guarantee_id: "",
     count: "",
 };
-export const onSubmit=async(actions, values, setData, setSelectedProducts, setSelectedProductsInfo, curentProduct)=>{
+export const onSubmit=async(actions, values, setData, setSelectedProducts, setSelectedProductsInfo, currentProduct)=>{
     console.log("values",values)
    setSelectedProducts(old=>[...old,{...values}])
-   console.log("curentProduct.guarantees[values.guarantee_id]",curentProduct.guarantees.find(g=>g.id==values.guarantee_id).title   )
    setSelectedProductsInfo(old=>[...old,{
-    title:curentProduct.title,
-    price:curentProduct.price,
-    guarante:curentProduct.guarantees.find(g=>g.id==values.guarantee_id).title,
+    id:currentProduct.id+Math.random(),
+    title:currentProduct.title,
+    price:currentProduct.price,
+    guarantee: values.guarantee_id > 0 ? currentProduct.guarantees.filter(g=>g.id == values.guarantee_id)[0].title : null,
+    color: values.color_id > 0 ? currentProduct.colors.filter(c=>c.id == values.color_id)[0].code : null,
+    // guarantee:currentProduct.guarantees.find(g=>g.id==values.guarantee_id).title,
     count:values.count
    }])
-   console.log("curentProductc",curentProduct)
-//    console.log(sele)
-   actions.resetForm();
-   
+   console.log("currentProduct",currentProduct)
+   actions.resetForm();  
 }
 export const validationSchema = Yup.object().shape({
     user_id : Yup.number().typeError("فقط عدد وارد کنید").required("لطفا این قسمت را پر کنید"),
