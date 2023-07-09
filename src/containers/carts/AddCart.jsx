@@ -17,12 +17,15 @@ import {
   editCartService,
   getSingellCartsService,
 } from "../../services/cart";
+import { getAllUsersService, getAllUsersServicew } from "../../services/users";
+import FormikControl from "../../components/form/FormikControl";
 const AddCart = () => {
   const navigate = useNavigate();
   const { handleGetCarts } = useOutletContext();
   const location = useLocation();
   const editId = location.state?.editId;
   const [allProduct, setAllProduct] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [colors, setColors] = useState([]);
   const [guarantees, setGuarantees] = useState([]);
   const [selectedProductsInfo, setSelectedProductsInfo] = useState([]);
@@ -59,7 +62,20 @@ const AddCart = () => {
         })
       );
   };
+  const handelAllUsers = async () => {
+    const res = await getAllUsersServicew();
+    res.status == 200 &&
+    setAllUsers(
+        res.data.data.map((p) => {
+          return { name: `${p.first_name||""} ${p.last_name||""}`.trim(), value: p.id };
+        })
+      );
+  };
 
+
+  const handeChangeSelectedUser = async (e, formik) => {
+formik.setFieldValue("user_id", e);
+  } 
   const handeChangeSelectedProduct = async (e, formik) => {
     formik.setFieldValue("product_id", e);
     const res = await getOneProductsService(e);
@@ -75,6 +91,7 @@ const AddCart = () => {
   useEffect(() => {
     editId && handelGetProduct();
     handelAllProducts();
+    handelAllUsers()
   }, []);
   const handleConfirmAddCart = async (formik) => {
     setIsSubmitting(true)
@@ -137,13 +154,21 @@ const AddCart = () => {
                 <Form>
                   <div className="row col-12 my-3 justify-content-center">
                     <div className="col-12 col-md-4 col-lg-2 my-1">
-                      <Field
+                      {/* <Field
                         type="text"
                         name="user_id"
                         // disable={(selectedProductsInfo.length > 0).toString()}
                         className="form-control"
                         placeholder="آی دی مشتری"
-                      />
+                      /> */}
+                {allUsers.length>0&& <SelectSearch
+                        options={allUsers}
+                        search={true}
+                        placeholder="کاربر"
+                        onChange={(e) => handeChangeSelectedUser(e, formik)}
+                        value={editId ?reInitialValues?.user_id:null}
+                      />}
+
                       <br />
                       <ErrorMessage name="user_id" component={FormikError} />
                     </div>

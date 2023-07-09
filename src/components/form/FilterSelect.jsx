@@ -136,7 +136,7 @@ if( e.target.value!=="")
                 > */}
                   <input
                     type="text"
-                    className="form-control "
+                    // className="form-control "
                     placeholder={firstItem}
                     value={targetValue}
                     onClick={(e) => e.stopPropagation()}

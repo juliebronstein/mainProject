@@ -85,7 +85,6 @@ const dataInf = [
 ];
 return (
   <>
-  { console.log(data)}
   <PaginateDataTable
     initData={data}
     dataInf={dataInf}

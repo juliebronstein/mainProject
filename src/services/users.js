@@ -3,6 +3,9 @@ import httpService from "./httpService";
 export const getAllUsersService = (page, countOnPage, searchChar) => {
     return httpService(`/api/admin/users?page=${page}&count=${countOnPage}&searchChar=${searchChar}`, "get");
   };
+export const getAllUsersServicew = () => {
+    return httpService(`/api/admin/users`, "get");
+  };
 export const getOneUserService = (id) => {
     return httpService(`/api/admin/users/${id}`, "get");
   };
