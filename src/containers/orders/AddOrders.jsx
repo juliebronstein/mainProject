@@ -30,13 +30,15 @@ const AddOrder = () => {
     }
 
     const handleGetCartsInfo = async (cartId)=>{
-        if (!cartId) return setSelectedCartItemsInfo([])
+        
+        if (!cartId) 
+            return setSelectedCartItemsInfo([])
+        
         const res = await getSingellCartsService(cartId);
-        console.log(res.data);
-        if (res.status === 200) {
-            console.log(res);
+        if (res.status === 200 ) {
             let products = []
             const cart = res.data.data
+            if(res.data.data===null) return setSelectedCartItemsInfo([])
             if(cart.is_ordered) {
                 setSelectedCartItemsInfo([])
                 return Alert('خطا', 'این سبد در سفارش دیگری قرار دارد', 'warning')
@@ -57,6 +59,7 @@ const AddOrder = () => {
     const handleDiscountInfo = async (discountId)=>{
         if (!discountId) return setDiscountPercent(0)
         const res = await GetOneDicount(discountId)
+        console.log(res.data)
         if (res.status === 200) setDiscountPercent(res.data.data.percent)
     }
 
@@ -124,7 +127,7 @@ const AddOrder = () => {
                                         type="number"
                                         name="cart_id"
                                         placeholder="کد سبد"
-                                        onBlur={(e)=>handleGetCartsInfo(e.target.value)}
+                                        onBlur= {(e)=>handleGetCartsInfo(e.target.value)}
                                         />
                                         <FormikControl
                                         className="col-12 col-md-4 col-lg-2 my-1 mini_date_box"
@@ -140,7 +143,10 @@ const AddOrder = () => {
                                             <input 
                                             type="text" 
                                             className="form-control" 
-                                            value={`مبلغ سبد: ${ selectedCartItemsInfo.length > 0 ? numberWithCommas(selectedCartItemsInfo.map(p=>p.count*(p.unit_price || p.product.price)).reduce((a, b)=>a+b)) : 0}`} 
+                                            value={`مبلغ سبد: ${ selectedCartItemsInfo.length > 0 ? 
+                                                numberWithCommas(selectedCartItemsInfo.map
+                                                    (p=>p.count*(p.unit_price || p.product.price)).reduce((a, b)=>a+b)) 
+                                                    : 0}`} 
                                             disabled />
                                         </div>
 
@@ -213,7 +219,7 @@ const AddOrder = () => {
 
                                     <div className='row'>
                                         {
-                                            selectedCartItemsInfo.map(item=>(
+                                            selectedCartItemsInfo?.map(item=>(
                                                 <div className="col-12 col-md-6 col-lg-4" key={item.id}>
                                                     <div className="input-group my-3 dir_ltr">
                                                         <span className="input-group-text text-end font_08 w-100 text_truncate">
