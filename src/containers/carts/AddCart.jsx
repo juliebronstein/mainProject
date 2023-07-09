@@ -12,7 +12,11 @@ import SelectSearch from "react-select-search";
 import "react-select-search/style.css";
 import { Alert } from "../../layouts/admin/utils/alert";
 import { numberWithCommas } from "../../layouts/admin/utils/number";
-import { addNewCartService, editCartService, getSingellCartsService } from "../../services/cart";
+import {
+  addNewCartService,
+  editCartService,
+  getSingellCartsService,
+} from "../../services/cart";
 const AddCart = () => {
   const navigate = useNavigate();
   const { handleGetCarts } = useOutletContext();
@@ -24,8 +28,7 @@ const AddCart = () => {
   const [selectedProductsInfo, setSelectedProductsInfo] = useState([]);
   const [currentProduct, setCurrentProduct] = useState([]);
   const [reInitialValues, setReInitialValues] = useState(null);
-
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handelGetProduct = async () => {
     const res = await getSingellCartsService(editId);
@@ -74,7 +77,8 @@ const AddCart = () => {
     handelAllProducts();
   }, []);
   const handleConfirmAddCart = async (formik) => {
-    const userId=formik.values.user_id
+    setIsSubmitting(true)
+    const userId = formik.values.user_id;
     let newProduct = [];
     for (const p of selectedProductsInfo) {
       newProduct.push({
@@ -83,31 +87,28 @@ const AddCart = () => {
         guarantee_id: p.guarantee,
         count: p.count,
       });
-   
-    }   const value={
-        user_id: userId,
-        products: newProduct,
-      }
-    if(editId){
-   console.log("editId",editId)
-   console.log("value",value)
-      const res = await editCartService(editId,value);
+    }
+    const value = {
+      user_id: userId,
+      products: newProduct,
+    };
+    if (editId) {
+      const res = await editCartService(editId, value);
       if (res.status == 200) {
         Alert("انجام شد", res.data.message, "success");
         handleGetCarts();
         navigate(-1);
+        setIsSubmitting(false)
       }
-    }
-    else{
+    } else {
       const res = await addNewCartService(value);
       if (res.status === 201) {
         Alert("انجام شد", res.data.message, "success");
         handleGetCarts();
         navigate(-1);
+        setIsSubmitting(false)
       }
-      
     }
-  
   };
 
   const handleDeleteProduct = (id) => {
@@ -249,11 +250,13 @@ const AddCart = () => {
                         </div>
                         <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
                           <button
+                          disabled={isSubmitting}
                             type="button"
                             className="btn btn-primary"
                             onClick={() => handleConfirmAddCart(formik)}
                           >
-                            ذخیره
+                            {isSubmitting?"...صبر کنید":"دخیره"}
+                            
                           </button>
                         </div>
                       </>
