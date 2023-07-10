@@ -1,3 +1,4 @@
+import { ConvertDateToMiladi } from "../../layouts/admin/utils/ConvertDate";
 import { Alert } from "../../layouts/admin/utils/alert";
 import { addNewOrderService } from "../../services/orders";
 import * as Yup from "yup";
@@ -17,7 +18,7 @@ export const initialValues = {
 export const onSubmit = async (values, actions, navigate, handleGetOrders) => {
     values = {
         ...values,
-        // pay_at: convertFormDateToMiladi(values.pay_at)
+        pay_at: ConvertDateToMiladi(values.pay_at)
     }
     const res = await addNewOrderService(values);
     if (res.status === 201) {
@@ -38,7 +39,7 @@ export const validationSchema = Yup.object().shape({
     email : Yup.string().email("فرمت ایمیل را رعایت کنید"),
     pay_at:Yup.string()
         .required("لطفا این قسمت را پر کنید")
-        .matches(/^[0-9/\ \s-]+$/,"فقط ازاعداد و خط تیره استفاده شود"),
+        .matches(/^[0-9/ \s-]+$/,"فقط ازاعداد و خط تیره استفاده شود"),
     pay_card_number : Yup.number().typeError("فقط عدد وارد کنید"),
     pay_bank : Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
 })

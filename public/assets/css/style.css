@@ -511,3 +511,6 @@ td , th {
     font-family: "BYekan" !important;
     text-align: right !important;
   }
+  .mini_date_box select{
+    padding: 0 !important;
+  }

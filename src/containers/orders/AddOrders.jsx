@@ -2,14 +2,14 @@ import { Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { Alert } from '../../layouts/admin/utils/alert';
-import { convertDateToJalali } from '../../layouts/admin/utils/ConvertDate';
+import ConvertDate, { convertDateToJalali } from '../../layouts/admin/utils/ConvertDate';
 import ModalContainer from '../../components/ModalContainer';
 import { initialValues, onSubmit, validationSchema } from './core';
 import FormikControl from '../../components/form/FormikControl';
 import { numberWithCommas } from '../../layouts/admin/utils/number';
 import { SubmittingButton } from '../../components/SubmittingButton';
 import { getSinglrOrderService } from '../../services/orders';
-import { GetOneDicount } from '../../services/discoints';
+import { GetAllDicount, GetOneDicount } from '../../services/discoints';
 import { getSingellCartsService } from '../../services/cart';
 import { getAllDeliveriesService } from '../../services/delivery';
 
@@ -23,7 +23,23 @@ const AddOrder = () => {
     const [discountPercent, setDiscountPercent] = useState(0)
     const [allDeliveries, setAllDeliveries] = useState([])
     const [selectedCartItemsInfo, setSelectedCartItemsInfo] = useState([])
+    const [discount, setDiscount] = useState([])
 
+
+    const handleOnchangediscunt=async(discountId,formik)=>{
+        if (!discountId) return setDiscountPercent(0)
+        formik.setFieldValue('discount_id',discountId)
+        const res = await GetOneDicount(discountId)
+        if (res.status === 200) setDiscountPercent(res.data.data.percent)
+    }
+    const handelGetDiuscount = async () => {
+        try {
+          const res = await GetAllDicount();
+          if (res.status === 200) setDiscount(res.data.data.map(d=>({id:d.id, value:d.title + "-" + d.percent})));
+        } catch (err) {
+          console.log(err);
+        }
+      };
     const getAllDeliveries = async ()=>{
         const res = await getAllDeliveriesService();
         if (res.status === 200)  setAllDeliveries(res.data.data.map(d=>({id:d.id, value:d.title + "-" + d.amount})));
@@ -38,7 +54,10 @@ const AddOrder = () => {
         if (res.status === 200 ) {
             let products = []
             const cart = res.data.data
-            if(res.data.data===null) return setSelectedCartItemsInfo([])
+            if(res.data.data===null) {
+                Alert("خطا","اطلاعات سبد در دسترس نمی باشد","warning")
+                return setSelectedCartItemsInfo([])
+            }
             if(cart.is_ordered) {
                 setSelectedCartItemsInfo([])
                 return Alert('خطا', 'این سبد در سفارش دیگری قرار دارد', 'warning')
@@ -56,12 +75,12 @@ const AddOrder = () => {
         }
     }
 
-    const handleDiscountInfo = async (discountId)=>{
-        if (!discountId) return setDiscountPercent(0)
-        const res = await GetOneDicount(discountId)
-        console.log(res.data)
-        if (res.status === 200) setDiscountPercent(res.data.data.percent)
-    }
+    // const handleDiscountInfo = async (discountId)=>{
+    //     if (!discountId) return setDiscountPercent(0)
+    //     const res = await GetOneDicount(discountId)
+    //     console.log(res.data)
+    //     if (res.status === 200) setDiscountPercent(res.data.data.percent)
+    // }
 
     const getSelectedOrderInfo = async ()=>{
         const res = await getSinglrOrderService(selectedOrderId)
@@ -74,10 +93,13 @@ const AddOrder = () => {
                 address: order.address,
                 phone: order.phone,
                 email: order.email ||"",
-                pay_at: order.pay_at ? convertDateToJalali(order.pay_at) : "",
+                pay_at: order.pay_at ? ConvertDate(order.pay_at) : "",
                 pay_card_number: order.pay_card_number ||"",
                 pay_bank: order.pay_bank ||"",
             })
+            // =================================================================  
+            // console.log(discount.find(i=>i.id==reInitialValues.discount_id).value)
+            // setDiscountPercent()
             let products = []
             const cart = order.cart
             console.log(order);
@@ -98,6 +120,7 @@ const AddOrder = () => {
 
     useEffect(()=>{
         getAllDeliveries()
+        handelGetDiuscount()
         selectedOrderId && getSelectedOrderInfo()
     },[])
     
@@ -149,7 +172,7 @@ const AddOrder = () => {
                                                     : 0}`} 
                                             disabled />
                                         </div>
-
+{/* 
                                         <FormikControl
                                         className="col-12 col-md-4 col-lg-2 my-1"
                                         control="input"
@@ -157,8 +180,16 @@ const AddOrder = () => {
                                         name="discount_id"
                                         placeholder="آی دی تخفیف"
                                         onBlur={(e)=>handleDiscountInfo(e.target.value)}
+                                        /> */}
+                                          <FormikControl
+                                        className="col-12 col-md-4 col-lg-2 my-1"
+                                        control="select"
+                                        options={discount}
+                                        name="discount_id"
+                                        firstItem="تخفیف"
+                                        handleOnchange={(e)=>handleOnchangediscunt(e,formik)}
                                         />
-
+ 
                                         <div className="col-12 col-md-4 col-lg-2 my-1">
                                             <input type="text" className="form-control" value={"درصد تخفیف: "+discountPercent} disabled />
                                         </div>
@@ -174,6 +205,7 @@ const AddOrder = () => {
                                         />
                                         <div className="col-12"></div>
 
+                                      
                                         <FormikControl
                                         className="col-12 col-md-4 col-lg-2 my-1"
                                         control="select"
