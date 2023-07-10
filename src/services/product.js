@@ -36,8 +36,12 @@ export const deleteProductImageService = (imageId)=>{
 export const setMainProductImageService = (imageId)=>{
   return httpService(`/api/admin/products/gallery/set_main/${imageId}`, 'get')
 }
+export const setFewerProductsService = (imageId)=>{
+  return httpService(`/api/admin/products/fewer_products`, 'get')
+}
+export const setToggleNotificationService = (id)=>{
+  return httpService(`/api/admin/products/toggle_notification/${id}`, 'get')
+}
 
 
 
-  
-//https://ecomadminapi.azhadev.ir/api/admin/products

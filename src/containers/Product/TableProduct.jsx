@@ -3,13 +3,14 @@ import { Actions } from "./Actions";
 import {
   deleteProductService,
   getProductsService,
+  setToggleNotificationService,
 } from "../../services/product";
 import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import AddButtonLink from "../../components/form/AddButtunLink";
 import { useHasPermission } from "../../hook/permissiondHook";
 export const TableProduct = () => {
-  const hasPerm=useHasPermission("create_product")
+  const hasPerm = useHasPermission("create_product");
   const [loading, setLoading] = useState(false);
   const [curentPage, setCurentPage] = useState(1); //صفحه حاضر
   const [pagesCount, setPagesCount] = useState(0); //کل صفحات
@@ -27,7 +28,37 @@ export const TableProduct = () => {
       setPagesCount(res.data.last_page);
     }
   };
-
+  const handelToggleNot = async (item) => {
+    const res = await setToggleNotificationService(item.id);
+    if (res.status === 200)
+   { 
+    console.log(res)
+  
+    Alert(
+        "انجام شد",
+        `${
+          res.data.data === false
+            ? "محصول به لیست محصولات رو به پایان اضافه شد"
+            : "محصول از لیست محصولات رو به پایان حذف شد"
+        }`,
+        "success"
+      );
+      const index=data.findIndex(i=>i.id==item.id)
+setData(old=>{
+  console.log(old[index])
+  return old[index].has_notification=1
+})
+      // setData(old=>{
+      //   const newData=[...old]
+      //   const index=newData.findIndex(i=>i.id==item.id)
+      //   console.log("index",index)
+      //   console.log("beore",newData[index].has_notification)
+      //   newData[index].has_notification= newData[index].has_notification?0:1
+      //   console.log("after",newData[index].has_notification)
+      //   return newData
+      // }) 
+    }
+  };
   const handelSearch = async (char) => {
     setSearchChar(char);
     handleGetProducts(1, countOnPage, char);
@@ -63,7 +94,11 @@ export const TableProduct = () => {
       field: null,
       title: "عملیات",
       elements: (item) => (
-        <Actions item={item} handelDeleteProduct={handelDeleteProduct} />
+        <Actions
+          item={item}
+          handelDeleteProduct={handelDeleteProduct}
+          handelToggleNot={handelToggleNot}
+        />
       ),
     },
   ];
@@ -86,7 +121,7 @@ export const TableProduct = () => {
         setCurentPage={setCurentPage}
         handelSearch={handelSearch}
       >
-        {hasPerm &&  <AddButtonLink href={"/product/add-product"} />}
+        {hasPerm && <AddButtonLink href={"/product/add-product"} />}
       </PaginateDataTable>
     </>
   );

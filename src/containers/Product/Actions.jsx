@@ -1,9 +1,12 @@
 import React from "react";
 import {  useNavigate } from "react-router-dom";
 import { ActionIcon } from "../../components/ActionIcon";
+import { setToggleNotificationService } from "../../services/product";
+import { Alert } from "../../layouts/admin/utils/alert";
 
-export const Actions = ({ item, handelDeleteProduct, setEditProduct }) => {
+export const Actions = ({ item, handelDeleteProduct, setEditProduct,handelToggleNot }) => {
   const navigate = useNavigate();
+ 
   return (
     <>
       <ActionIcon
@@ -29,13 +32,19 @@ export const Actions = ({ item, handelDeleteProduct, setEditProduct }) => {
         onClick={() =>
           navigate("/product/gallery", { state: { selectedProduct: item } })
         }
-      ></ActionIcon>
+      />
+      <ActionIcon
+        icon={` fas fa-bookmark ${!item.has_notification? "text-danger":"text-info"} `}
+        pTitle="delete_product"
+        title="تغییر وضعیت محصول"
+         onClick={()=>handelToggleNot(item)}
+      />
       <ActionIcon
         icon="fas fa-times text-danger"
         pTitle="delete_product"
         title="حذف محصول"
         onClick={() => handelDeleteProduct(item)}
-      ></ActionIcon>
+      />
     </>
   );
 };

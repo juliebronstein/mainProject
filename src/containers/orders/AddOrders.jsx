@@ -102,7 +102,7 @@ const AddOrder = () => {
             // setDiscountPercent()
             let products = []
             const cart = order.cart
-            console.log(order);
+            // console.log(order);
             for (const item of cart.items) {
                 products.push({
                     id: item.id,
@@ -290,3 +290,5 @@ const AddOrder = () => {
 }
 
 export default AddOrder;
+
+
