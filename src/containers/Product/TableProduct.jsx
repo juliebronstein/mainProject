@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Actions } from "./Actions";
 import {
   deleteProductService,
@@ -9,6 +9,7 @@ import { PaginateDataTable } from "../../components/PaginateDataTable";
 import { Alert, Confirm } from "../../layouts/admin/utils/alert";
 import AddButtonLink from "../../components/form/AddButtunLink";
 import { useHasPermission } from "../../hook/permissiondHook";
+import { StockContex } from "../../context/stockContex";
 export const TableProduct = () => {
   const hasPerm = useHasPermission("create_product");
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ export const TableProduct = () => {
   const [countOnPage, setCountOnPage] = useState(20); //تعداد ذر هر صفحه
   const [data, setData] = useState([]);
   const [searchChar, setSearchChar] = useState("");
+  const { numctx, setNumctx } = useContext(StockContex);
   // let j=8
 
   const handleGetProducts = async (page, count, char) => {
@@ -29,35 +31,35 @@ export const TableProduct = () => {
     }
   };
   const handelToggleNot = async (item) => {
-    const res = await setToggleNotificationService(item.id);
-    if (res.status === 200)
-   { 
-    console.log(res)
-  
-    Alert(
-        "انجام شد",
-        `${
-          res.data.data === false
-            ? "محصول به لیست محصولات رو به پایان اضافه شد"
-            : "محصول از لیست محصولات رو به پایان حذف شد"
-        }`,
-        "success"
+    if (item.stock <= numctx) {
+      const res = await setToggleNotificationService(item.id);
+
+      if (res.status === 200) {
+        console.log(res);
+
+        Alert(
+          "انجام شد",
+          `${
+            res.data.data === true
+              ? "محصول به لیست محصولات رو به پایان اضافه شد"
+              : "محصول از لیست محصولات رو به پایان حذف شد"
+          }`,
+          "success"
+        );
+        const index = data.findIndex((i) => i.id == item.id);
+        const hasNotification = item.has_notification === 0 ? 1 : 0;
+        setData((old) => {
+          const newData = [...old];
+          newData[index].has_notification = hasNotification;
+          return newData;
+        });
+      }
+    } else
+      Alert(
+        "خطا",
+        `موجودی کالا بیش از ${numctx} عدد بوده و در مجموعه کالاهای رو به اتمام قرار نمیگیرد`,
+        "warning"
       );
-      const index=data.findIndex(i=>i.id==item.id)
-setData(old=>{
-  console.log(old[index])
-  return old[index].has_notification=1
-})
-      // setData(old=>{
-      //   const newData=[...old]
-      //   const index=newData.findIndex(i=>i.id==item.id)
-      //   console.log("index",index)
-      //   console.log("beore",newData[index].has_notification)
-      //   newData[index].has_notification= newData[index].has_notification?0:1
-      //   console.log("after",newData[index].has_notification)
-      //   return newData
-      // }) 
-    }
   };
   const handelSearch = async (char) => {
     setSearchChar(char);

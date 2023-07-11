@@ -1,14 +1,31 @@
-import React from "react";
-import {  useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ActionIcon } from "../../components/ActionIcon";
 import { setToggleNotificationService } from "../../services/product";
 import { Alert } from "../../layouts/admin/utils/alert";
+import { StockContex } from "../../context/stockContex";
 
-export const Actions = ({ item, handelDeleteProduct, setEditProduct,handelToggleNot }) => {
+export const Actions = ({
+  item,
+  handelDeleteProduct,
+  setEditProduct,
+  handelToggleNot,
+}) => {
   const navigate = useNavigate();
- 
+  const { numctx } = useContext(StockContex);
   return (
     <>
+    {item.stock <= numctx && (
+        <ActionIcon
+          icon={` fas text-info ${
+            item.has_notification === 1 ? "fa-eye-slash" : "fa-eye"
+          } `}
+          pTitle="delete_product"
+          title="تغییر وضعیت محصول"
+          onClick={() => handelToggleNot(item)}
+        />
+      )}
+
       <ActionIcon
         icon="fas fa-edit text-warning"
         pTitle="update_product"
@@ -33,12 +50,7 @@ export const Actions = ({ item, handelDeleteProduct, setEditProduct,handelToggle
           navigate("/product/gallery", { state: { selectedProduct: item } })
         }
       />
-      <ActionIcon
-        icon={` fas fa-bookmark ${!item.has_notification? "text-danger":"text-info"} `}
-        pTitle="delete_product"
-        title="تغییر وضعیت محصول"
-         onClick={()=>handelToggleNot(item)}
-      />
+      
       <ActionIcon
         icon="fas fa-times text-danger"
         pTitle="delete_product"
