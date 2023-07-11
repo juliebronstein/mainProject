@@ -55,7 +55,7 @@ const ProductTable = () => {
               fewerProducts.map(p=>(
               <tr key={p.id}>
                 <td>{p.id}</td>
-                <td>{p.categories[0].title}</td>
+                <td>{p.categories[0]?.title}</td>
                 <td>{p.title}</td>
                 <td>{p.stock === 0 ? (
                   <span className="text-danger">پایان یافته</span>
