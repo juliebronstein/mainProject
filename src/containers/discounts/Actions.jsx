@@ -20,8 +20,8 @@ import { ActionIcon } from "../../components/ActionIcon";
         icon="fas fa-times text-danger"
         pTitle="delete_discount"
         title="حذف کد"
-        onClick={()=>handleDeletediscount(item)}
-      />
+        onClick={()=>{handleDeletediscount(item)}}
+      ></ActionIcon>
     </>
   );
 };

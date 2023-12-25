@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import AuthFormikControl from "../../components/autForm/AuthFromikControl";
 import { Alert } from "../../layouts/admin/utils/alert";
 import { loginService } from "../../services/auth";
-
+import loginImg from "../utilis/images/img-01.png"
 const initialValues = {
   phone: "",
   password: "",
@@ -84,7 +84,7 @@ const Login = () => {
               </div>
             </Form>
             <div className="login100-pic js-tilt" data-tilt>
-              <img src="/auth/images/img-01.png" alt="IMG" />
+              <img src={loginImg} alt="IMG" />
             </div>
           </div>
         );

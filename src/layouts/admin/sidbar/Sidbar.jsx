@@ -4,12 +4,14 @@ import { Avatar } from "./Avatar";
 import { SideBarGroupTitle } from "./SideBarGroupTitle";
 import { SidebarItem } from "./SidebarItem";
 import { useSelector } from "react-redux";
+import man from './avatar/man.jpg' 
+import woman from './avatar/woman.jpg' 
 
 export const Sidbar = () => {
   const { showsibbar } = useContext(AdminContext);
   const user=useSelector(state=>state.userReduce.user)
-const ulr='/assets/images/avatar/'
-const urlImage=user.gender?ulr+"man.jpg":ulr+"woman.jpg"
+const ulr='./avatar/'
+const urlImage=user.gender?man:woman
   return (
     <section id="sidebar_section">
       <div

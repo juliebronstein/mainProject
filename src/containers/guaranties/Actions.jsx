@@ -11,15 +11,14 @@ export const Actions = ({ item, handleDeleteGuaranty, setEditeGuarantyId }) => {
         onClick={() => { setEditeGuarantyId(item.id);
         
         }}
-      ></ActionIcon>    
-      <i
-        icon="fas fa-times text-danger"
-        pTitle="delete_guarantee"
-        title="حذف گارانتی"
-        onClick={() => {
-          handleDeleteGuaranty(item.id);
-        }}
-      ></i>
+      ></ActionIcon> 
+      <ActionIcon
+       icon="fas fa-times text-danger"
+       pTitle="delete_guarantee"
+       title="حذف گارانتی"
+       onClick={()=>{handleDeleteGuaranty(item.id)}}
+      ></ActionIcon>   
+
     </>
   );
 };
