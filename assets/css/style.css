@@ -8,7 +8,7 @@
 }
 
 body{
-    background: url(/assets/images/body_back4.jpg) repeat;
+    background: url(%PUBLIC_URL%/assets/images/body_back4.jpg) repeat;
    
 }
 
@@ -412,7 +412,7 @@ td , th {
     left: 0;
     overflow: auto;
     transition: all 300ms ease;
-    background: url(/assets/images/body_back4.png) repeat;
+    background: url(%PUBLIC_URL%/assets/images/body_back4.png) repeat;
 }
 #content_section.with_sidebar{
     width: calc(100% - 250px);
