@@ -35,7 +35,7 @@ export const onSubmit = async (values, actions, productEdit) => {
         Alert("افزودن", res.data.message, "success");      
     } else {
       const res = await createnewProductService(values);
-      console.log(res);
+      // console.log(res);
       if (res.status === 201) {
         Alert("افزودن", res.data.message, "success");
         actions.resetForm();

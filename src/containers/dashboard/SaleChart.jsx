@@ -35,11 +35,11 @@ export const SaleChart = () => {
         monthsOrdersArr.push({month:thisMonth, amount: 0})
         thisMonth --
       }
-      console.log("monthsOrdersArr",monthsOrdersArr)
+      // console.log("monthsOrdersArr",monthsOrdersArr)
 
       const orders = res.data.data
       for (const order of orders) {
-        console.log("jMoment(order.pay_at)",jMoment(order.pay_at))
+        // console.log("jMoment(order.pay_at)",jMoment(order.pay_at))
         const moment = jMoment(order.pay_at)
         const monthIndex = moment?.jMonth()
         const index = monthsOrdersArr.findIndex(o=>o.month == monthIndex)

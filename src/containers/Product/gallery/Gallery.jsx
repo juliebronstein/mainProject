@@ -44,7 +44,7 @@ export const Gallery = () => {
 
     setLoading(true);
     const res = await addProductImageService(selectedProduct.id, formdata);
-    console.log(res)
+    // console.log(res)
     setLoading(false);
     if (res.status === 201) {
       Alert("انجام شد", res.data.message, "success");

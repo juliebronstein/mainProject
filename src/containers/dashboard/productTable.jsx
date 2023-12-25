@@ -15,7 +15,7 @@ const ProductTable = () => {
     setLoading(false)
     if (res.status == 200) {
       const products = res.data.data
-      console.log(products);
+      // console.log(products);
       products.length > 0 ? setFewerProducts(products) : setFewerProducts([])
     }
   }

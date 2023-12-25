@@ -22,7 +22,7 @@ export const PaginateDataTable = ({
   const handelSetSearchChar = (char) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      console.log("send...");
+      // console.log("send...");
       handelSearch(char);
     }, 1000);
   };

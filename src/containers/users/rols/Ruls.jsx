@@ -59,7 +59,7 @@ const Attributes = () => {
         if (res.status === 200) Alert("انجام شد", res.data.message, "success");
         setData(data.filter((row) => row.id !== rowData.id));
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     }
   };
